@@ -1,0 +1,58 @@
+---
+title: "HW 1"
+output: html_document
+date: "2024-02-01"
+---
+
+## From Johnson and Wichern book
+### Problems Chapter 1: 1,4,5,9,12a,b Grad:17,18
+### Problems Chapter 2: 1,6,7,15,41 Grad: 25,31
+
+1.1 Calculate sample means of $\bar{x_1}$ and $\bar{x_2}$ and sample covariances $s_{11}$ $s_{12}$ and $s_{12}$
+
+```{r q1}
+x1 <- c(3,4,2,6,8,2,5)
+x2 <- c(5,5.5,4,7,10,5,7.5)
+```
+
+
+1.4 World's 10 largest companies yield data. 
+  a) plot scatter plot for variables $x_1$ and $x_2$. Comment of appearance.
+  b) Compute $\bar{x_1}$, $\bar{x_2}$, $s_{11}$, $s_{12}$, $s_{12}$, and $r_{1,2}$.
+
+```{r q4-a}
+company <- read.table("../johnson_wichern_data/P1-4.DAT", col.names = c("sales", "profits", "assets"))
+```
+
+1.5 Using data from 4 plot at $x_2$ and $x_3$ and $x_1$ and $x_3$, comment. Compute $\boldsymbol{\bar{x}}$, $\boldsymbol{S_n}$, $\boldsymbol{R}$ for $x_1$, $x_2$, $x_3$.
+
+1.9 Consider measurements given for $x_1$ and $x_2$
+a) Plot the data in scatter plot and compute $s_{11}$, $s_{22}$, $s_{12}$
+
+```{r q9-a}
+q9 <- data.frame(x1 = c(-6,-3,-2,1,2,5,6,8),
+                 x2 = c(-2,-3,1,-1,2,1,5,3))
+```
+
+b) calculate variables again given that they rotated through an angle of $\theta = 26$
+c) calculate variances
+d) add new point (4,-2) and find distance to origin
+e) calculate distance using $a_{11}$, $a_{22}$, $a_{12}$
+
+1.12 $d(O, P) = \max(|x_1|,|x_2|)$
+a) Compute the distance from $P= (-3,4)$.
+b) Plot the locus of points whose squared distance from the origin is 1.
+
+1.17 Grad only: Compute $\bar{x}$, $S_n$, and $R$. Interpret correlations.
+
+```{r q17}
+q17 <- read.table("../johnson_wichern_data/T1-9.dat", col.names = c("x1", "x2", "x3", "x4", "x5", "x6", "x7", "x8"))
+```
+
+1.18 Convert to meters per second and redo calculations.
+```{r q18}
+q18 <- q17
+names(q18) <- c("county", "one", "two", "four", "eight", "fifteen", "threeth", "marathon")
+```
+
+Chapter 2 complete following same template.
