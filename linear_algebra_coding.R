@@ -16,8 +16,10 @@ mean(receipt$books)
 colMeans(receipt)
 # tidyverse way
 map(receipt, mean)
-
+map(receipt, ~sum(.)/length(.))
 ## covariance and variance
+x <- c(sum(receipt$dollars)/length(receipt$dollars),
+       sum(receipt$books)/length(receipt$books))
 
 ### most by hand
 ## s_11 (variance in dollars)
@@ -47,3 +49,34 @@ cov(receipt)*(4-1)/4
 ## lots of other ways to do this
 ##  but this is the easiest I think
   
+#############
+### addition multiplication
+
+x <- c(1,3,2)
+y <- c(-2,1,-1)
+
+3*x
+x+y
+## inner product ??
+x*x
+## not right
+
+## best way
+x%*%x
+# cursed way
+sum(x*x)
+
+x %*% y
+### length
+sqrt(sum(x^2))
+sqrt(sum(y^2))
+
+
+## finding theta ??
+#cos(theta) = x*y/lx*ly
+x%*%y/(sqrt(sum(x^2))*sqrt(sum(y^2)))
+
+acos(x%*%y/(sqrt(sum(x^2))*sqrt(sum(y^2))))
+## this is in radians
+## need to multiply by 180/pi to be degrees
+acos(x%*%y/(sqrt(sum(x^2))*sqrt(sum(y^2))))*180/pi
