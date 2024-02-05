@@ -1,0 +1,9 @@
+---
+title: "Homework 2"
+author: "Your Name Here"
+date: "2024-02-15"
+output: html_document
+---
+
+## Chapter 4: 3,4a, 19,29,39
+## Chapter 5: 1,2,18
