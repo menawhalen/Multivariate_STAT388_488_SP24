@@ -1,0 +1,330 @@
+---
+title: "PCA"
+author: "M Whalen"
+date: "2024-02-27"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Example to Start
+1. Generate and view sample.
+```{r}
+# Step 1: Generate sample data
+set.seed(123)
+x1 <- rnorm(100)  # Sample data for dimension 1
+x2 <- 2*x1 + rnorm(100)  # Sample data for dimension 2
+
+data <- tibble(x1 = x1, x2 = x2)
+
+ggplot(data, aes(x1,x2)) +
+  geom_point()
+```
+
+2. Covariance structure of data
+
+```{r}
+# Step 2: Compute the covariance matrix
+covariance_matrix <- cov(data)
+covariance_matrix
+```
+
+3. Transform data to communicate variability. Use Eigenvalues/vectors
+
+```{r}
+# Step 3: Compute the eigenvalues and eigenvectors
+eigen_info <- eigen(covariance_matrix)
+eigenvalues <- eigen_info$values
+eigenvectors <- eigen_info$vectors
+eigenvalues
+eigenvectors
+```
+
+4. Order in greatest variation first. "get PCA"
+
+```{r}
+# Step 4: Sort eigenvalues in decreasing order
+sorted_indices <- order(eigenvalues, decreasing = TRUE)
+sorted_eigenvalues <- eigenvalues[sorted_indices]
+sorted_eigenvectors <- eigenvectors[, sorted_indices]
+```
+
+5. Choose principal components, first 1 since most of the variabaility. Transform the data.
+
+```{r}
+# Step 5: Choose the principal components
+# For demonstration purposes, let's keep only the first principal component
+pc1 <- sorted_eigenvectors[, 1]
+
+# Proportion of the first PC
+sorted_eigenvalues[1]/sum(sorted_eigenvalues)
+
+# Project the original data onto the principal component
+projected_data <- as.matrix(data) %*% pc1
+
+# Reconstruct the data from the projected data
+reconstructed_data <- projected_data %*% t(pc1)
+
+
+# Convert data to a data frame
+original_df <- data.frame(x = data[,1], y = data[,2])
+reconstructed_df <- data.frame(x = reconstructed_data[,1], y = reconstructed_data[,2])
+
+#original_df
+#reconstructed_df
+```
+
+6. Plot and "see" reduction of dimension.
+
+```{r}
+# Plot original and reconstructed data using ggplot
+ggplot() +
+  geom_point(data = original_df, aes(x1, x2), color = "black", size = 2) +
+  geom_point(data = reconstructed_df, aes(x, y), color = "red", size = 2) +
+  labs(x = "Dimension 1", y = "Dimension 2", title = "Original and Reconstructed Data") +
+  theme_minimal()
+
+proj <- data.frame(first_pca = projected_data, y = 0)
+ggplot(proj, aes(first_pca, y)) +
+  geom_point()
+```
+
+## Equivariance and Scaling
+Equivariant method is where results of the method arrange appropriately when data is transformed.
+
+### Ex Regression equation aka Transformation
+
+$\hat{Y}_{i}=2+4 X_{j}$
+
+let $z_{j}=x_{j} / 2$ then for $z_{j}$ new estimated regression is
+
+$\widehat{y}_{j}^{15}=2+8z_i$ since $8z_i = 8\frac{x_{i}}{2} = 4x_i$
+
+for $z=1$ the model is 10, which is same as $x=2$ which is also 10.
+
+Least squares regression is equivariant with respect to location and scale.
+**Important PCA is _not_ equivariant with respect to scale.**
+
+Eg. If $S = \left(\begin{array}{ll} 2 &1 \\1 & 2 \end{array}\right)$ for $x_{j1}, x_{j2}$ $j = 1, \dots, n$
+
+eigen values and eigen vectors $\hat{\lambda}_{1}=3 \quad \hat{\lambda}_{2}=1$, $\hat{e}_{1}=\left(\begin{array}{l}1 / \sqrt{2} \\ 1 / \sqrt{2}\end{array}\right) \hat{e}_{2}=\left(\begin{array}{l}-1 / \sqrt{2} \\ 1 / \sqrt{2} \end{array}\right).$
+
+So first $PC$ is
+
+$$\frac{1}{\sqrt{2}} x_{j,1}+\frac{1}{\sqrt{2}} x_{j,2}=.707 x_{j 1}+.707 x_{j 2}$$
+with proportion of variability explained: $\frac{\lambda_{1}}{\lambda_{1}+\lambda_{2}}=\frac{3}{4} =75 \%$
+
+Now we rescale the analysis,
+
+$y_{j 1}=\frac{x_{j 1}}{2} \quad \& \quad y_{j 2}=x_{j 2}$ so using var/cor properties
+
+$S_{y}=\left[\begin{array}{cc}\frac{2}{4} & \frac{1}{2} \\ \frac{1}{2} & 2\end{array}\right]$ how eigenvalues are $\lambda_{1} = 2.15 \quad \& \quad \lambda_{2}=0.35$ with $\hat{e}_{1}=\left(\begin{array}{l}.29 \\ .957\end{array}\right)$ $ \hat{e}_{2}=\left(\begin{array}{r}-.957 \\ .290\end{array}\right)$ so first PC $ = .290 y_{i 1}+.957 y_{j 2}$ but when it is written as $x$'s $.29\left(\frac{x_{j 1}}{2}\right)+.957 x_{j 2}=.145 x_{j 1}+.957 y_{j 2}$.
+
+
+If we rescale so coefficient vector is length 1 $.150 x_{j 1}+.989 x_{j 2}$ not what we got before...
+
+What about proportion of variance from 1st PC? It is $\frac{2.15}{2.15 + .35}=.86$ not 75% like previously.
+
+So scaling choice is meaningful! If $x$'s are large magnitudes different, then that difference matters for PCA result.
+
+Eg. $x_{1}=$ height $x_{2}=$ weight.
+
+1. $x_{1}$ in meters and $ x_{2}$ in grams, where $ x_{2}$ has more variance and large coeff.
+
+2. $x_{1}$ in millimeters $\frac{1}{}$ weight in tons, now $x_1$ has more variance and 1st PC will mainly be about is $x_{1}$
+
+*most* of the time variables are scaled by standard deviation unless on same scale like the iris dataset,  when we do that its talking about correlation. But this is a conscious choice! We are saying that each variable considered the same ~ish.
+
+### Covariance and Correlation
+
+- use PCA on covariance matrix if all variables are on the same scale (roughly)... but hard in real life 
+- otherwise should be using $R$ correlation matrix
+
+Calculating eigenvalues eigenvectors in $R$ is equivalent to calculating the PC of the original after they'd been standardized to have unit variance.
+
+When we do this it is a deliberate choice stating that all variables should be "equally" weighted.
+
+## Choosing Number of PC
+We noted that the optimal choice for approx $x_{j}$ is $v_{1} v_{2} \ldots v_{r}$ where they are $\hat{e}_{1} \hat{e}_{2} \ldots \hat{e}_{r}$ eigenvectors from the $r$ largest eigenvalues. But how large should it be? How many eigenvectors are needed so that for $j=1 \ldots n$ of $x_{j}$ can be accurately represented by its coordinates wrt $\hat{e}_{1} \hat{e}_{2} \ldots \hat{e}_{r}$?
+
+Recall that, $\frac{\hat{\lambda}_{1}+\hat{\lambda}_{2}+\ldots+\hat{\lambda}_{r}}{\hat{\lambda}_{1}+\hat{\lambda}_{2}+\ldots+\hat{\lambda}_{p}}$ maybe interpreted as a measure of how well observed data is approximated by linear function of first $r$ eigenvectors. The "proportion of variance explained".
+
+Since these values are in decreasing order of $\hat{\lambda}_{i}$ is a small value that suggest $\hat{e}_{i} \hat{e}_{i+1} \ldots \hat{e}_{p}$ can be ignored without losing information.
+
+Although definitive answers exist people look at the following
+
+1. The proportion of total variance attributed to the first $j$ principal components. As $j$ increases this ratio generally increases until $j>p$ and it approaches 1. So we pick an $r$ to be the smallest $j$ for which the ratio exceds some threshold, generally. $.7-.9$.
+
+2. The average total variance per variable,  $\frac{1}{p} \sum_{j=1}^{p} \hat{\lambda}_{j}=\frac{1}{p} \operatorname{tr}(S)$ , PC for which $\hat{\lambda}_{i}<\frac{1}{p} \sum^p{\hat{\lambda_j}}$ that is for which
+$\frac{\lambda_{i}}{\sum \lambda_{j}}<\frac{1}{p}$  are ignored.
+Note that if the analysis is based on correlation $\sum_{j=1}^{p} \hat{\lambda}_{j}=p$ so that PC for which $\hat{\lambda}_{i}<1$ are ignored.
+
+3. A plot of the estimated eigenvalues $\hat{\lambda}_{i}$ for $i=1 \ldots . p$ versus $i$ called a scree plot. Typically the plot has $\hat{\lambda}_{i}$ increasing rapidly as $i$ decreases from 1 and there is a value of $j$ at which $\hat{\lambda}_{i}$ for $i=j+1, j+2, \ldots . p$ are roughly equal (platues) Then ignore those $j+1, j+2, \ldots P$ PCS.
+
+## Principal Component Scores (observations):
+Principal component scores represent the projection of the original data onto the new orthogonal axes defined by the principal components. These scores can be used for data visualization, clustering, or further analysis. Positive scores indicate that the observation is in the direction of increasing values for the corresponding principal component, while negative scores indicate the opposite.
+
+**Interpretation:** When interpreting principal component scores, consider the direction and magnitude of the scores. Observations with high positive scores on a particular principal component are characterized by high values of the variables that contribute positively to that component. Conversely, observations with high negative scores exhibit low values of those variables.
+
+## Loadings (variables):
+Loadings represent the contribution of each original variable to each principal component. Positive and negative loadings indicate the direction and strength of the relationship between the original variables and the principal component. Higher loading values indicate stronger associations between variables and principal components.
+
+**Interpretation:** Interpretation of loadings involves identifying which variables contribute most significantly to each principal component. Variables with high positive or negative loadings on a particular principal component have a strong influence on that component and are important for understanding the underlying structure of the data. Conversely, variables with loadings close to zero have little influence on that component.
+
+*Example:* In a PCA analysis of customer purchase data, if the "Product A" variable has a high positive loading on the first principal component, it suggests that purchases of Product A strongly contribute to the variance explained by the first component. Conversely, if the "Product B" variable has a high negative loading on the second principal component, it indicates that purchases of Product B are inversely related to the variance explained by the second component.
+
+## Using PCA for variable selection in regression 
+Consider a regression model with response variable $y$ and predictor $x_{1} x_{2} \ldots x_{p}$
+
+
+$y=\beta_{0}+\beta_{1} x_{1}+\beta_{2} x_{2}+\ldots+\beta_{p} x_{p}+\varepsilon$ where $E\left(y \mid x_{1} x_{2} \ldots x_{p}\right)=0$. 
+
+Suppose $x_{1} x_{2} \ldots x_{p}$ is a good predictor of $y$ but they are correlated with each other, accurate estimation of $\beta_{i}$ 's is difficult due to standard errors of the estimate being large. Also correlation suggest not all predictors are necessary. What can you do?
+
+
+Reduce set of predictor with PCA: 
+
+Linear functions of $x_{1} \ldots x_{p}$ that are useful for predicting $y$ have a large variation. So constant predictors - unlikely to be helpful.
+Thus, use PCA to identify linear functions of the predictors that have large variance. This would be using the first few linear PC as predictors. ~ this may he helpful but don't use $y$ only $x_{i}$'s also no math reason for using exact $P C$ in the regression either ~
+
+Formal PCR steps
+1. Use PCA on $x_{1} \ldots x_{P}$
+2. Choose first few PC and compute PC scores $z_{1} z_{2} \ldots z_{q}$
+3. Fit model with predictors $z_{1} z_{2} \ldots z_{q}$ using least squares.
+4. Use coefficients from this model and equation for each $z_{j}$ to obtain estimates of coeff. for each $x_{k}$.
+
+
+## Seasame Street Data
+Load in data and select variables of interest (pre test). What's the correlation structure.
+
+```{r}
+# Load the Sesame Street dataset
+sesame <- read_csv("data/sesame.csv")
+
+# Select only pre-test variables
+pre_sesame <- sesame %>% 
+  select(starts_with("pre")) %>% 
+  select(-pretest)
+
+# Compute correlation matrix
+correlation_matrix <- cor(pre_sesame)
+correlation_matrix
+```
+
+### Run PCA
+
+```{r}
+# ?prcomp
+
+# Run PCA with scaling
+pre_pca <- prcomp(pre_sesame, scale = TRUE)
+pre_pca
+summary(pre_pca)
+
+# Extract the first principal component
+first_pc <- pre_pca$rotation[,1]
+first_pc
+```
+
+### Manually using PCA and Subsetting
+
+```{r}
+# Perform PCA manually with selected variables
+manual_pca <- prcomp(~prebody+prelet+preform+prenumb+prerelat+preclasf, scale = TRUE, data = sesame)
+
+# Perform PCA with subset (e.g., by gender)
+gender_pca <- prcomp(~prebody+prelet+preform+prenumb+prerelat+preclasf, subset = (sex==2),
+                     scale = TRUE, data = sesame)
+```
+
+### Tidyverse way
+https://clauswilke.com/blog/2020/09/07/pca-tidyverse-style/
+```{r}
+library(broom)
+# Perform PCA using tidyverse
+tidy_pca <- sesame %>%
+  select(sex, prebody, prelet, preform, prenumb, prerelat, preclasf) %>% 
+  group_by(sex) %>%
+  nest() %>% 
+  mutate(pca = map(data, ~ prcomp(.x, scale = TRUE)))
+tidy_pca$pca 
+
+```
+
+### Scaling Data
+```{r}
+# Perform PCA without scaling
+noscale_pca <- prcomp(pre_sesame, scale = FALSE)
+noscale_pca
+map(pre_sesame, sd)
+
+# Scale data manually
+scaled_presesame <- scale(pre_sesame, center = FALSE, scale = c(32, 58, 20, 54, 17, 24))
+prcomp(scaled_presesame, scale = FALSE)
+
+```
+
+
+### Calculating PC Scores
+
+```{r}
+# Calculate PC scores
+pc_scores <- predict(pre_pca)
+head(pc_scores)
+
+```
+
+### How many PC ?
+Scree Plot
+```{r}
+# Scree plot
+screeplot(pre_pca)
+```
+
+## Factoretra
+
+```{r}
+library(factoextra)
+library(broom)
+fviz_screeplot(pre_pca)
+fviz_pca(pre_pca) ## too much sometimes
+## look at variables
+fviz_pca_var(pre_pca,
+             col.var = "contrib", # Color by contributions to the PC
+                                 gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+                                 repel = TRUE) # Avoid text
+
+## look at indiviudals but still a lot to view
+fviz_pca_ind(pre_pca,
+             col.ind = "cos2", # Color by the quality of representation
+             gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+             repel = TRUE     # Avoid text overlapping
+             )
+### pulling out rotations 
+sesame %>%
+  select(sex, prebody, prelet, preform, prenumb, prerelat, preclasf) %>% 
+  group_by(sex) %>%
+  nest() %>% 
+  mutate(pca = map(data, ~ prcomp(.x, scale = TRUE)),
+         pca_rot = map(pca, ~ .x %>% 
+                         tidy(matrix = "rotation"))) %>% 
+  unnest(pca_rot)
+
+## can pull out rotation, loadings, eigenvalues in tidy format
+```
+
+### Try it with Post Test seasame
+
+## Other Datasets to Practice PCA
+
+- USAArrests
+- Palmerpenguins
+- mtcars
+- diamonds
+- decathalon
+- iris...
