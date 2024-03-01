@@ -1,0 +1,44 @@
+---
+title: "Homework 4"
+author: "Your Name Here"
+date: "2024-03-15"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Chapter 8: 1,2 (do "by hand" written or code is fine but no prcomp function), 10a,b
+## Homework Questions written below 4,5,6
+
+CH8 1.
+
+CH 8 2.
+
+Ch 8. 10 a,b
+```{r ch8-10a}
+stonks <- read.table("../../johnson_wichern_data/T8-4.DAT", col.names = c("jpmorgan", "citi", "wells", "shell", "exmob"))
+```
+
+
+4. Using the penguins dataset from palmerpenguins.
+a) Using bill length, bill depth, flipper length, and body mass look at the correlation structure. Comment what you see and what should we do for scaling/correlation when we run PCA?
+
+b) Using the whole dataset run a PCA, report how many PC you should use with their appropriate variability explained. 
+
+c) Perform this same analysis as b but for each species of penguin.
+
+```{r 4-penguins}
+library(palmerpenguins)
+data("penguins")
+```
+
+5. a) Perform PCA on USArrest with the 4 outcomes using standard deviation scaled. Describe the first two PC and what their loadings are possibly describing where the variability is coming from. Examine the biplot and describe observations you see about certain states and the variables.
+
+b) Perform the same analysis using the 4 outcomes but using the correlation.
+
+c) Compare the two PCA results. Which one would you select?
+
+```{r}
+# USArrests
+```
+

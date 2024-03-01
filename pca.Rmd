@@ -123,7 +123,7 @@ Now we rescale the analysis,
 
 $y_{j 1}=\frac{x_{j 1}}{2} \quad \& \quad y_{j 2}=x_{j 2}$ so using var/cor properties
 
-$S_{y}=\left[\begin{array}{cc}\frac{2}{4} & \frac{1}{2} \\ \frac{1}{2} & 2\end{array}\right]$ how eigenvalues are $\lambda_{1} = 2.15 \quad \& \quad \lambda_{2}=0.35$ with $\hat{e}_{1}=\left(\begin{array}{l}.29 \\ .957\end{array}\right)$ $ \hat{e}_{2}=\left(\begin{array}{r}-.957 \\ .290\end{array}\right)$ so first PC $ = .290 y_{i 1}+.957 y_{j 2}$ but when it is written as $x$'s $.29\left(\frac{x_{j 1}}{2}\right)+.957 x_{j 2}=.145 x_{j 1}+.957 y_{j 2}$.
+$S_{y}=\left[\begin{array}{cc}\frac{2}{4} & \frac{1}{2} \\ \frac{1}{2} & 2\end{array}\right]$ how eigenvalues are $\lambda_{1} = 2.15 \quad \& \quad \lambda_{2}=0.35$ with $\hat{e}_{1}=\left(\begin{array}{l}.29 \\ .957\end{array}\right)$ $\hat{e}_{2}=\left(\begin{array}{r}-.957 \\ .290\end{array}\right)$ so first PC $= .290 y_{i 1}+.957 y_{j 2}$ but when it is written as $x$'s $.29\left(\frac{x_{j 1}}{2}\right)+.957 x_{j 2}=.145 x_{j 1}+.957 y_{j 2}$.
 
 
 If we rescale so coefficient vector is length 1 $.150 x_{j 1}+.989 x_{j 2}$ not what we got before...
@@ -134,7 +134,7 @@ So scaling choice is meaningful! If $x$'s are large magnitudes different, then t
 
 Eg. $x_{1}=$ height $x_{2}=$ weight.
 
-1. $x_{1}$ in meters and $ x_{2}$ in grams, where $ x_{2}$ has more variance and large coeff.
+1. $x_{1}$ in meters and $x_{2}$ in grams, where $x_{2}$ has more variance and large coeff.
 
 2. $x_{1}$ in millimeters $\frac{1}{}$ weight in tons, now $x_1$ has more variance and 1st PC will mainly be about is $x_{1}$
 
@@ -145,9 +145,33 @@ Eg. $x_{1}=$ height $x_{2}=$ weight.
 - use PCA on covariance matrix if all variables are on the same scale (roughly)... but hard in real life 
 - otherwise should be using $R$ correlation matrix
 
-Calculating eigenvalues eigenvectors in $R$ is equivalent to calculating the PC of the original after they'd been standardized to have unit variance.
+Calculating eigenvalues eigenvectors in $R$ is equivalent to calculating the PC of the original after they'd been standardized to have unit variance. When we do this it is a deliberate choice stating that all variables should be "equally" weighted.
 
-When we do this it is a deliberate choice stating that all variables should be "equally" weighted.
+When performing Principal Component Analysis (PCA), it's common to work with either the covariance matrix or the correlation matrix of the original variables. While both matrices provide insights into the underlying structure of the data, they can yield slightly different principal components due to scaling differences.
+
+- Covariance Matrix PCA:
+
+  - Principal components represent directions of maximum variance in the original data space.
+  - Variables with larger variances have a greater influence on the principal components.
+  - Loadings reflect the covariance between original variables and principal components.
+  - Scaling: Variables are not standardized, so their variances directly affect the principal components.
+
+- Correlation Matrix PCA:
+
+  - Principal components represent directions of maximum correlation between variables.
+  - Variables are standardized, making them comparable regardless of scale.
+  - Loadings reflect the correlation between original variables and principal components.
+  - Scaling: Variables are standardized to have unit variance, ensuring equal contribution to principal components.
+
+- Relating Principal Components:
+
+  - Projection: Project principal components from one analysis onto the space spanned by principal components from the other analysis.
+  - Correlation: Calculate correlation between principal components obtained from covariance and correlation matrices.
+  - Rotation: Use rotation techniques to align principal components from both analyses.
+  - Eigenvalue Comparison: Compare eigenvalues obtained from both PCA analyses to assess variance explained.
+
+**Interpretation:** While the direction and magnitude of principal components may differ between covariance and correlation matrices, they capture similar underlying structures.
+Using correlation matrices is often preferred when variables have different scales, as it ensures equal contribution to principal components.
 
 ## Choosing Number of PC
 We noted that the optimal choice for approx $x_{j}$ is $v_{1} v_{2} \ldots v_{r}$ where they are $\hat{e}_{1} \hat{e}_{2} \ldots \hat{e}_{r}$ eigenvectors from the $r$ largest eigenvalues. But how large should it be? How many eigenvectors are needed so that for $j=1 \ldots n$ of $x_{j}$ can be accurately represented by its coordinates wrt $\hat{e}_{1} \hat{e}_{2} \ldots \hat{e}_{r}$?
@@ -166,17 +190,49 @@ Note that if the analysis is based on correlation $\sum_{j=1}^{p} \hat{\lambda}_
 
 3. A plot of the estimated eigenvalues $\hat{\lambda}_{i}$ for $i=1 \ldots . p$ versus $i$ called a scree plot. Typically the plot has $\hat{\lambda}_{i}$ increasing rapidly as $i$ decreases from 1 and there is a value of $j$ at which $\hat{\lambda}_{i}$ for $i=j+1, j+2, \ldots . p$ are roughly equal (platues) Then ignore those $j+1, j+2, \ldots P$ PCS.
 
-## Principal Component Scores (observations):
+## Interpretations
+
+To interpret PCA effectively, we focus on understanding the relationship between original variables and principal components, primarily through correlation loadings and component coefficients.
+
+### Principal Component Scores (observations):
 Principal component scores represent the projection of the original data onto the new orthogonal axes defined by the principal components. These scores can be used for data visualization, clustering, or further analysis. Positive scores indicate that the observation is in the direction of increasing values for the corresponding principal component, while negative scores indicate the opposite.
 
 **Interpretation:** When interpreting principal component scores, consider the direction and magnitude of the scores. Observations with high positive scores on a particular principal component are characterized by high values of the variables that contribute positively to that component. Conversely, observations with high negative scores exhibit low values of those variables.
 
-## Loadings (variables):
-Loadings represent the contribution of each original variable to each principal component. Positive and negative loadings indicate the direction and strength of the relationship between the original variables and the principal component. Higher loading values indicate stronger associations between variables and principal components.
 
-**Interpretation:** Interpretation of loadings involves identifying which variables contribute most significantly to each principal component. Variables with high positive or negative loadings on a particular principal component have a strong influence on that component and are important for understanding the underlying structure of the data. Conversely, variables with loadings close to zero have little influence on that component.
+### Loadings/Rotations:
+Definition: Loadings are coefficients that quantify the contribution of each original variable to each principal component. They indicate the strength and direction of the relationship between the variables and the principal components.
 
-*Example:* In a PCA analysis of customer purchase data, if the "Product A" variable has a high positive loading on the first principal component, it suggests that purchases of Product A strongly contribute to the variance explained by the first component. Conversely, if the "Product B" variable has a high negative loading on the second principal component, it indicates that purchases of Product B are inversely related to the variance explained by the second component.
+**Interpretation:** Loadings are calculated based on the cosine of the angle of rotation between the principal component axes and the original axes. A positive loading indicates that a variable positively contributes to the principal component, meaning higher values of the variable are associated with higher scores on the component. Conversely, a negative loading indicates that the absence of the variable contributes positively to the component.
+
+- Magnitude: The magnitude of a loading reflects the importance of the variable to the principal component. Larger loadings indicate stronger relationships between variables and components, suggesting that the variable has a greater impact on the overall structure of the data captured by that component.
+
+- Range: Loadings range from -1 to +1, where -1 indicates a perfect negative correlation between the variable and the component, +1 indicates a perfect positive correlation, and 0 indicates no correlation. The sign of the loading indicates the direction of the relationship (positive or negative), while the magnitude indicates the strength.
+
+-  Importance: Variables with high loadings on a particular principal component are considered important for explaining the variation captured by that component. These variables contribute significantly to the underlying structure of the data represented by the component.
+
+
+## Biplots
+### Representation of Variables:
+In a biplot, the original variables are represented as vectors in the same space as the principal components. The direction and length of each vector indicate the relationship between the original variables and the principal components. Variables that point in similar directions are positively correlated, while those pointing in opposite directions are negatively correlated.
+
+### Contribution of Variables:
+The length of each vector in a biplot represents the importance or contribution of the corresponding variable to the principal components. Longer vectors indicate variables with greater influence on the principal components and thus on the overall structure of the data.
+
+### Interpretation of Points/Scores:
+Observations (data points) from the original dataset are also plotted in the biplot. The position of each point relative to the vectors of the original variables and the principal components provides insights into the relationships between observations and variables.
+
+### Proximity of Points and Vectors:
+Points that are close to the vectors of the original variables indicate high values for those variables, while points far from the vectors indicate low values. Similarly, the proximity of points to each other reflects similarities or differences between observations based on their values across the original variables.
+
+### Clustering and Grouping:
+Biplots can reveal patterns of clustering or grouping among observations and variables. Observations that cluster together in the biplot share similar characteristics based on their values across the original variables. Similarly, variables that cluster together in the biplot are strongly correlated with each other and may represent underlying patterns or dimensions in the data.
+
+### Interpretation of Principal Components:
+In addition to interpreting the relationships between variables and observations, biplots allow for the interpretation of principal components. The direction and length of the principal component vectors provide insights into the relative importance of each component and the contribution of original variables to each component.
+
+### Overall Structure:
+By examining the arrangement of variables, observations, and principal components in the biplot, analysts can gain a comprehensive understanding of the overall structure of the data. Biplots facilitate the identification of patterns, trends, and relationships that may not be apparent from the original dataset alone.
 
 ## Using PCA for variable selection in regression 
 Consider a regression model with response variable $y$ and predictor $x_{1} x_{2} \ldots x_{p}$
@@ -218,6 +274,14 @@ correlation_matrix
 
 ### Run PCA
 
+prcomp outputs
+
+sdev - the standard deviations of the principal components (i.e., the square roots of the eigenvalues of the covariance/correlation matrix, though the calculation is actually done with the singular values of the data matrix).
+
+rotation - the matrix of variable loadings (i.e., a matrix whose columns contain the eigenvectors). 
+
+Note: princomp was written for compatiblity with S-PLUS however it is not recommended. Its is better to use prcomp or svd. That is because by default princomp performs a decompostion of the covariance not correlation matrix. princomp can call eigen on the correlation or covariance matrix. Its default calculation uses divisor N for the covariance matrix.
+
 ```{r}
 # ?prcomp
 
@@ -226,9 +290,6 @@ pre_pca <- prcomp(pre_sesame, scale = TRUE)
 pre_pca
 summary(pre_pca)
 
-# Extract the first principal component
-first_pc <- pre_pca$rotation[,1]
-first_pc
 ```
 
 ### Manually using PCA and Subsetting
@@ -265,7 +326,7 @@ map(pre_sesame, sd)
 
 # Scale data manually
 scaled_presesame <- scale(pre_sesame, center = FALSE, scale = c(32, 58, 20, 54, 17, 24))
-prcomp(scaled_presesame, scale = FALSE)
+scaled_prcomp <- prcomp(scaled_presesame, scale = FALSE)
 
 ```
 
@@ -285,6 +346,38 @@ Scree Plot
 # Scree plot
 screeplot(pre_pca)
 ```
+
+## Interpretation 
+Look at the scaled by equation question.
+```{r}
+# View PCA summary
+print(scaled_prcomp)
+summary(scaled_prcomp)
+
+# Extract loadings/rotations
+loadings_matrix <- scaled_prcomp$rotation
+## First PC loadings
+loadings_matrix[,1]
+## First 2 PC
+loadings_matrix[,1:2]
+
+# Extract component coefficients (eigenvectors)
+coefficients_matrix <- loadings_matrix * sqrt(scaled_prcomp$sdev)
+coefficients_matrix
+
+#
+eig <- eigen(cov(scaled_presesame))
+ord_id <- order(eig$values, decreasing = TRUE)
+sorted_eigenvalues <- eig$values[ord_id]
+sorted_eigenvectors <- eig$vectors[, ord_id]
+
+sorted_eigenvalues
+scaled_prcomp$sdev^2
+
+sorted_eigenvectors
+loadings_matrix
+```
+
 
 ## Factoretra
 
@@ -312,7 +405,7 @@ sesame %>%
   nest() %>% 
   mutate(pca = map(data, ~ prcomp(.x, scale = TRUE)),
          pca_rot = map(pca, ~ .x %>% 
-                         tidy(matrix = "rotation"))) %>% 
+                         tidy(matrix = "rotation"))) %>% ## Get rotations for each variable for each PC
   unnest(pca_rot)
 
 ## can pull out rotation, loadings, eigenvalues in tidy format
