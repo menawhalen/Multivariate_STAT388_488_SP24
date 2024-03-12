@@ -149,14 +149,14 @@ Calculating eigenvalues eigenvectors in $R$ is equivalent to calculating the PC 
 
 When performing Principal Component Analysis (PCA), it's common to work with either the covariance matrix or the correlation matrix of the original variables. While both matrices provide insights into the underlying structure of the data, they can yield slightly different principal components due to scaling differences.
 
-- Covariance Matrix PCA:
+- Covariance Matrix PCA (Nonscaled):
 
   - Principal components represent directions of maximum variance in the original data space.
   - Variables with larger variances have a greater influence on the principal components.
   - Loadings reflect the covariance between original variables and principal components.
   - Scaling: Variables are not standardized, so their variances directly affect the principal components.
 
-- Correlation Matrix PCA:
+- Correlation Matrix PCA (Scaled):
 
   - Principal components represent directions of maximum correlation between variables.
   - Variables are standardized, making them comparable regardless of scale.
