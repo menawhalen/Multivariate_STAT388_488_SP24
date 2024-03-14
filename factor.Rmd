@@ -1,0 +1,363 @@
+---
+title: "Factor Analysis"
+author: "M Whalen"
+date: "2024-03-14"
+output: html_document
+---
+
+# Factor Analysis
+
+Generally used to describe the correlation structure of a random vector in terms of one or moue latent variables. (unobserved)
+
+E.g. Let $x$ be three dim random vector. with $x_1, x_2, x_3$ denote the coordinate rv. Let $\Sigma$ denote covariance matrix of $x$. Its reasonable to assume that the correlations between $x_1, x_2, x_3$ are due to some characteristic that affect all three measurements.
+
+Example: $X$ is SAT exam $x_1$ reading $x_2$ writing and $x_3$ is math $\approx$ all 3 are academic performance\\
+We can model this with
+
+$$\begin{aligned}
+& x_1=\mu_1+\alpha_1 F+\varepsilon_1 \\
+& x_2=\mu_2+\alpha_2 F+\varepsilon_2 \\
+& x_3=\mu_3+\alpha_3 F+\varepsilon_3
+\end{aligned}$$
+
+where $F$ is a latent variable that is unobserved rv assumed to have mean 0 \& variance 1.
+
+$\varepsilon$'s are assumed to be unobserved ind. rv with mean 0 and variances $\psi_1 \psi_2 \psi_3$ and $\varepsilon$'s and  $F$ are independent.
+
+From the model $E\left(x_j\right)=\mu_j$ and $\operatorname{Var}\left(x_j\right)=\psi_j+\alpha_j^{2}$ with
+
+$$\begin{aligned}
+\operatorname{Cov}\left(X_1, X_2\right) & =\operatorname{Cov}\left(\alpha_1 F+\varepsilon_1, \alpha_2 F+\varepsilon_2\right) \\
+& =\operatorname{Cov}\left(\alpha_1 F, \alpha_2 F\right)=\alpha_1, \alpha_2 \operatorname{Var}(F)=\alpha_1 \alpha_2
+\end{aligned}$$
+
+So $\operatorname{cov}\left(X_1 X_3\right)=\alpha_1 \alpha_3$ and $\operatorname{cov}\left(X_2 X_3\right)=\alpha_2 \alpha_3$ so
+
+$$\sum=\left[\begin{array}{lll}
+\varphi_1+a_1^2 & \alpha_1 \alpha_2 & \alpha_3 \\
+\alpha_1 \alpha_2 & \psi_2+\alpha_2^2 & \alpha_2 \alpha_3 \\
+\alpha_1 \alpha_3 & \alpha_2 \alpha_3 & \psi_3+\alpha_3^2
+\end{array}\right]$$
+
+This is most useful when high dimensional response vectors can be described in terms of a few factors.
+
+## Factor Analysis Model
+$X=\left[\begin{array}{l}x_1 \\ x_2 \\ \vdots \\ x_p\end{array}\right]$ w/ mean vector $\mu=\left[\begin{array}{c}\mu_1 \\ \mu_2 \\ \vdots \\ \mu_p\end{array}\right]$ and cov $\Sigma$. 
+The model describes $X$ in terms of a common set pf Factors $F_1 \ldots F_m$..
+$$\begin{aligned}
+& x_1=\mu_1+l_{11} F_1+l_{12} F_2+\ldots+l_{1 m} F_m+\varepsilon_1 \\
+& x_2=\mu_2+l_{21} F_1+l_{22} F_2+\ldots+l_{2 m} F_m+\varepsilon_2 \\
+& \vdots \\
+& x_p=\mu_p+l_{p 1} F_1+l_{p 2} F_2+\ldots+l_{p m} F_m+\varepsilon_p
+\end{aligned}$$
+
+We call $l_{j j}$ loadings for the $i^{\text {th}}$ variable and the $j^{\text {th}}$ factor in matrix notation: $X=M+\mathcal{L} F+\varepsilon$.
+
+where $\mathcal{L}$ is a $p \times m$ nonrandom matrix of factor loadings. $F$ is $m$-dim unobserved random vector with mean  0 and covariance matrix $I_m$ and $\varepsilon$ is $p$ dim unobserved random vector with mean 0 and covariance $\Psi$ (diagonal matrix $\left.\varphi_1 \varphi_2 \ldots \varphi_p\right)$. $F$ and $\varepsilon$ are independent.
+
+*Lingo:* $\mathcal{L}$ - Loading matrix $\varepsilon$'s specific factors $F$'s common factors.
+
+$\operatorname{Cov}\left(x_i, F_j\right)=\operatorname{Cov}\left(l_{i 1} F_1+l_{i 2} F_2+\dots+l_{i m} F_m+\varepsilon_i, F_j\right)$ 
+
+$$\begin{aligned}
+\operatorname{Cov}\left(x_i, F_j\right) &=\operatorname{Cov}\left(l_{i 1} F_1+l_{i 2} F_2+\dots+l_{i m} F_m+\varepsilon_i, F_j\right)\\
+& =l_{i 1} \operatorname{Cov}\left(F_1, F_i\right)+l_{i 2} \operatorname{Cov}\left(F_2, F_j\right)+\ldots+l_{i m} \operatorname{Cov}\left(F_{m_1} F_j\right)+\underbrace{\operatorname{Cov}\left(\varepsilon_i F\right.}_0) \\
+& =l_{i j}
+\end{aligned}$$
+Since only 1 is when $i=j$.
+
+Covariance structure:
+
+$$\begin{aligned}
+\Sigma=E\left[(X-\mu](X-\mu)^{\prime}\right] & =E\left[(L F+\varepsilon)(L F+\varepsilon)^{\prime}\right] \\
+& =E\left(L F F^{\prime} L^{\prime}\right)+E\left(L F \varepsilon^{\prime}\right)+E\left(\varepsilon F^{\prime} L\right)+E\left(\varepsilon \varepsilon^{\prime}\right)
+\end{aligned}$$
+
+Where,
+$E\left(F F^{\prime}\right)=\operatorname{Cov}(F)=I_m$ and $L$ is a nonstachastic matrix so $E\left(L F F^{\prime} L^{\prime}\right)=L I_{m}L^\prime=L L^{\prime}$
+
+indpendent of $F$ and $\varepsilon$ so move those to zero and $\operatorname{cov}(\varepsilon)=\Psi$.
+
+
+So the covariance structure is
+
+$$
+\Sigma=\mathbb{L} \mathbb{L}^{\prime}+{\Psi}
+$$
+Since $\Psi$ is diagonal any covariance between $x_i ,x_j$ is due to the common factor $F$ and depends on loading matrix $\mathbb{L}$.
+Thus the $\frac{p(p+1)}{2}$ variances and covariances in $\Sigma$ can be written in terms of the $\mathrm{pm}$ factor loadings in $\mathbb{L}$ wkith $\mathrm{p}$ diagonal elements of $\Psi$.
+
+
+Let $l_i$ ante the $i^{\text {th}}$ row of $\mathbb{L}$ so that
+
+$l_i=\left(l_{i1} l_{i 2} \ldots l_{i m}\right) \quad i=1 \ldots p$
+
+so $\operatorname{var}\left(x_i\right)=l_{i 1}^2+l_{i 2}^2+\ldots+l_{i m}^2+\psi_i$ with $\operatorname{cov}\left(x_i x_j\right)=l_{i 1} l_{j 1}+l_{i 2} l_{i 1}+\ldots+l_{i m} l_{m i}$.
+
+The variance of $X_i$ can be written as sum of 2 terms
+
+$$h_i{ }^2=\underbrace{l_{i 1}{ }^2+l_{i 2}{ }^2+\ldots+l_i{ }^2}_{\text {from common factors}} \quad \text{and} \quad \underbrace{\psi_i}_{\text {from specific factors }}$$
+
+$h_i{ }^2$ is called communality of variable $i$ and $\psi_i$ is specific variance
+
+## Geometric View of Factor Analysis
+
+$$
+X=\left[\begin{array}{c}
+x_1 \\
+x_2 \\
+\vdots \\
+x_p
+\end{array}\right] \text {and assume } \mu=E(x)=0
+$$
+
+We can write $X$ as
+$$
+X=x_1\left[\begin{array}{l}
+1 \\
+0 \\
+0 \\
+0
+\end{array}\right]+x_2\left[\begin{array}{l}
+0 \\
+1 \\
+0 \\
+0
+\end{array}\right]+\ldots+x_p\left[\begin{array}{c}
+0 \\
+0 \\
+1 \\
+1
+\end{array}\right] \text { Note } x_1, x_2, \ldots x_p \text { are correlated rv}
+$$
+
+Find new basis vectors $v_1 v_2, \dots, v_p$ to write as linear combo that is uncorrelated
+
+$X=z_1 v_1+z_2 v_2+\ldots+z_p v_p \quad \text { where } \operatorname{cov}\left(z_i z_i\right)=0$
+
+Let $\Sigma=\operatorname{cov}(X)$ and consider spectral decomposition of $\Sigma$, where
+
+$$
+\Sigma=\lambda_1 e_1 e_1^{\prime}+\lambda_2 e_2 e_2^{\prime }+\ldots+\lambda_p e_1 e_p^{\prime}
+$$
+
+where $\lambda_i$ is eigenvalues with $\lambda_1 \geq \lambda_2 \geq \ldots \geq \lambda_p$ and their eigenvectors as follows. Then the coordinates of $X$ with respect to the basis of $e_1 e_2 \ldots e_p$ is
+
+$$z_j=\left\langle e_j X\right\rangle=e_j^{\prime} X \quad j=1 \ldots m$$
+
+Note that $E\left(z_j\right)=0$, $\operatorname{Var}\left(z_j\right)=e_j^\prime \Sigma e_j=\lambda e_j^{\prime} e_j=\lambda_j$ and $\operatorname{cov}\left(z_i, z_j\right)=e_i^\prime \sum e_j=\lambda_j e_i^{\prime} e_j=0$ for $i \neq j$.
+
+So we can write
+
+$$X=z_1 e_1+z_2 e_2+\ldots z_p e_p$$
+
+also can write
+
+$$X=\sqrt{\lambda_1} z_1 e_1+\sqrt{\lambda_2} z_2 e_2+\ldots+\sqrt{\lambda_p} z_p e_p$$
+
+where $z_i$'s are uncorrelated rv with variance equal to 1. So if $\lambda_{r+1} \dots \lambda_p}$ are small then we can represent $X$ in the $r$ dim.
+
+*like PCA from a slightly different perspective*
+
+## Non uniqueness of Factor Loading Matrix
+
+Consider model fer $p$ dim $X$
+
+$X=\mu+\mathbb{L}+\varepsilon$ 
+
+where $\mathbb{L}$ is $p \times m$  and $F$ is  $m$ dim vector and  $\operatorname{cov}(F)=I$. There are many possible sets that could satisfy this vector space so $\mathbb{L}$ is not uniquely identified.
+
+For some matrix $\mathbb{L}_0$:
+
+$X=M+\mathbb{L}_0 F+\varepsilon$
+
+Let $Q$ denote an $m \times m$ orthogonal matrix where $Q Q^{\prime}=Q^{\prime} Q=I_m$.
+
+Then we can write
+
+$X=\mu+L_0 Q Q^{\prime} F+\varepsilon=\mu+L_1 F^*+\varepsilon$
+
+where $\mathbb{L}_1=\mathbb{L}_0 Q$ and $F^*=Q^{\prime}F$ and note that $F^*$ and $\varepsilon$ are still independent.
+
+$$
+\begin{aligned}
+& E\left(F^*\right)=E\left(Q^{\prime} F\right)=Q^{\prime} E(F)=0 \\
+& \operatorname{cov}\left(F^*\right)=\operatorname{cov}\left(Q^{\prime} F\right)=Q^{\prime} \operatorname{cov}(F) Q \\
+& =Q^{\prime} I_m Q=I_m \\
+&
+\end{aligned}
+$$
+
+now the model is
+
+$$
+X=\mu+\mathbb{L}_1 \mathbb{F}+\varepsilon
+$$
+
+so if $\mathbb{L}_0$ is 'true' loadings the $\mathbb{L}_1$ is also true.
+
+## Estimation
+
+Following the model, the $p \times p$ covariance matrix $\Sigma$ can be written as
+
+$$
+\Sigma=\mathbb{L}\mathbb{L}^{\prime}+\Psi
+$$
+
+where $\mathbb{L}$ is $p \times m$ and $\Psi$ is a $p \times p$ diag. matrix.
+
+Eg 9.1 verify relationship is true
+
+$$
+\Sigma=\left[\begin{array}{cccc}
+19 & 30 & 2 & 12 \\
+30 & 57 & 5 & 23 \\
+2 & 5 & 38 & 47 \\
+12 & 23 & 47 & 68
+\end{array}\right]
+$$
+
+$$
+\mathbb{L}=\left[\begin{array}{cc}
+4 & 1 \\
+7 & 2 \\
+-1 & 6 \\
+1 & 8
+\end{array}\right] \quad \Psi=\left[\begin{array}{llll}
+2 & & \\
+& 4 &  \\
+& & & 1 \\
+& & & &3
+\end{array}\right]
+$$
+
+with communality of $X_1$ is $17=h_1^2$.
+and specific variance 2 so variance $=19$.
+
+*******************************************************************
+Let $S$ be sample covariance matrix. So we want to find $\hat{L} \& \hat{\Psi}$ such that.
+
+$$
+S=\hat{L} \hat{L}^{\prime}+\hat{\Psi}
+$$
+
+Best plan is to use some measure $\Delta(A, B)$ of the 'distance' between 2 square matrices $A, B$. So we want to minimize
+
+$$
+\Delta\left(L L^{\prime}+\Psi, S\right)
+$$
+
+If we let $\Delta_{L S}(A, B)=\operatorname{tr}\left((A-B)(A-B)^{\prime}\right)$ which can be written as
+
+$$
+\Delta_{L S}(A, B)=\sum_{i=1}^p \sum_{j=1}^p\left(A_{i j}-B_{i j}\right)^2
+$$
+
+Estimators that minimize $\Delta_{L S}(\mathbb{L}\mathbb{L}^\prime+\Psi, S)$ are the least squares estimators.
+
+The most common distance measure is
+
+$\Delta_{M L}(A, B)=-\operatorname{tr}\left(A^{-1} B\right)+\log \left|A^{-1} B\right|$  applying to pos def matrix
+
+
+When $X$ is multivariate normal minimizing $\Delta_{\mathrm{ML}}\left(\mathbb{L}\mathbb{L}^\prime+\Psi, S\right)$ is the *maximum likelihood estimate*.
+
+One can yield useful estimates without normal assumption so it is used often (like in regression).
+
+## Equivariance of maximum likelihood estimation
+
+We can rescale our response vector and model remains unchanged. Let $C$ denote a $p \times p$ diag. matrix with $c_1 c_2 \ldots c_p \quad c_j>0$ and define 
+$$Y = \left[\begin{array}{c} y_1 \\
+y_2 \\
+y_3  \\
+\dots \\
+y_p
+\end{array}\right] = C^{-1}X$$ thus $y_j = \frac{x_j}{c_j}$ for $j = 1, \dots, p$.
+
+So $X=C Y$ so that
+
+$C Y= \mathbb{L} F+\varepsilon$
+
+or
+
+$$\begin{aligned}
+& Y=C^{-1} L F+C^{-1} \varepsilon \\
+& Y=\tilde{\mathbb{L} F}+\tilde{\varepsilon} \quad \text { where } \tilde{\mathbb{L}}=\mathbb{C}^{-1} \mathbb{L} \text{ and } \tilde{\varepsilon}=C^{-1} \varepsilon
+\end{aligned}$$
+
+$\mathbb{L}$ is still $p \times m $and  $\tilde{\varepsilon}$ is $p$ dim vector
+
+Just need to update $\mathbb{L} = C^{-1}\mathbb{L}$ and $\Psi=C^{-1} \Psi C^{-1}$
+
+Same for covariance matrix..
+
+Let $\Sigma_y$ be cov. matrix for $Y=C^{-1} X$, 
+Then
+$\Sigma_y=C^{-1} \Sigma C^{-1}$
+
+so
+
+$$
+\Sigma_y=C^{-1}\left(\mathbb{L} \mathbb{L}^{\prime}+\Psi\right) C^{-1}=\left(C^{-1} \mathbb{L}\right)\left(C^{-1} \mathbb{L}\right)^{\prime}+C^{-1} \Psi C^{-1} .
+$$
+
+**Now max likelihood estimates with rescaling**
+
+Let $\hat{\mathbb{{L}}}_0$ and $\hat{\Psi}_1$ be MLE of $\mathbb{L}$ and  $\Psi$ based on obs from $D_x$ with $S_x=\frac{1}{n-1}\left(D_x-\bar{x} 1_n^{\prime}\right) \cdot\left(D_x-\bar{x} 1_n^{\prime}\right)^{\prime}$ with $\bar{x}=\frac{1}{n} D_x 1_n$ now using $C$ as previously described so $D_y=C^{-1} D_x$ so
+$$
+S_y=\frac{1}{n-1}\left(D y-\bar{y} 1_n^{\prime}\right)\left(D y-\bar{y} 1_n^{\prime}\right)^{\prime} \quad \text{and } \bar{y}=\frac{1}{n} D y 1_n
+$$
+
+so that $S_y=C^{-1} S_x C^{-1}$.
+
+Let $\hat{\mathbb{L}}_1$ and $\hat{\Psi}_1$ be max likelihood estimates based on $D_y$ .$\hat{\mathbb{L}}_1$ and  $\hat{\Psi}_1$ minimize
+
+$$
+\begin{aligned}
+& \left.\Delta_{M L}\left(\mathbb{L} \mathbb{L} ^{\prime}+\Psi, S_y\right)=\Delta_{M L}=\mathbb{L} \mathbb{L} ^{\prime}+\Psi, C^{-1} S_x C^{-1}\right) \\
+& =\underbrace{-\operatorname{tr}\left(\left(\mathbb{L} \mathbb{L} ^\prime+\Psi\right)^{-1} C^{-1} S_x C^{-1}\right)}+\log \mid\left(\mathbb{L} \mathbb{L} ^\prime+\Psi\right)^{-1} C^{-1} S_x C^{-1}\mid \\
+&
+\end{aligned}
+$$
+
+$=\operatorname{tr}\left(C^{-1}\left(\mathbb{L} \mathbb{L}^{\prime}+\Psi\right)^{-1} C^{-1} S_x\right)$ using trace and inverse proporties
+
+$$
+=\operatorname{tr}\left[\left((C \mathbb{L})(C\mathbb{L})^{\prime}+C \Psi C\right)^{-1} S_x\right]
+$$
+
+and the log piece
+
+$$
+\left.\log \left|\left(\mathbb{L} \mathbb{L}^{-1}+\Psi\right)^{-1} C^{-1} S_x C^{-1}\right|=\log \mid( (C L)(C L)^1+C \Psi C)^{-1} S_x \mid
+$$
+
+So we can now say
+
+$$
+\begin{aligned}
+& \left.\Delta_{M L}\left(\mathbb{L} \mathbb{L}^{\prime}+\Psi, S_y\right)=-\operatorname{tr}\left[\left((C\mathbb{L})(C\mathbb{L})^{\prime}+C \Psi C\right)^{-1} S_x\right]+\log \mid\left((C\mathbb{L})(C\mathbb{L})^{\prime}+C \Psi C\right)^{-1} S_x\right) \mid \\
+& \left.=\Delta_{M L}(C\mathbb{L})(C\mathbb{L})^{\prime}+C \Psi C, S_x\right) \\
+&
+\end{aligned}
+$$
+
+this shows that $C \hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0$ \& $C \hat{\Psi_1} C=\widehat{\Psi}_0$\\
+But what about the uniqueness requirement that $\hat{\mathbb{L}}^{\prime} \hat{\Psi}^{-1} \mathbb{L}$ is a diagnol matrix.
+Suppose $\hat{\mathbb{L}}_0^{\prime} \hat{\Psi}_0^{-1} \hat{\mathbb{L}}_0$ is diagnol \& define $\left.\hat{4}\right\} \hat{\Psi}_1$ as\\
+then
+
+$$
+\hat{\mathbb{L}}_1^{\prime} \hat{\Psi}_1^{-1} \hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0^{\prime} C^{-1} C \hat{\Psi}_0^{-1} C C^{-1} \hat{\mathbb{L}}_0=\hat{\mathbb{U}}_0^{\prime} \hat{\underline{I}}_0^{-1} \hat{\mathbb{L}}_0
+$$
+
+thees it diagnol. It follows the
+
+$$
+\hat{\mathbb{L}}_1=C^{-1} \hat{L}_0 \quad \text { \& } \hat{\Psi}_1=C^{-1} \hat{\Psi}_0 C^{-1}
+$$
+
+hence the maximum likelihood estimates of $L \frac{1}{2}$ are equivarlant.
+
+important cause scaling doesn't matter. y it changes it'll change in the way you think.
+q generally performed on correlation matrix so analysis is bared on standardized obs.
