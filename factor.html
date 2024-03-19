@@ -367,15 +367,16 @@ the coordinate rv. Let <span class="math inline">\(\Sigma\)</span>
 denote covariance matrix of <span class="math inline">\(x\)</span>. Its
 reasonable to assume that the correlations between <span class="math inline">\(x_1, x_2, x_3\)</span> are due to some
 characteristic that affect all three measurements.</p>
-<p>Example: <span class="math inline">\(X\)</span> is SAT exam <span class="math inline">\(x_1\)</span> reading <span class="math inline">\(x_2\)</span> writing and <span class="math inline">\(x_3\)</span> is math <span class="math inline">\(\approx\)</span> all 3 are academic performance\
-We can model this with</p>
+<p>Example: <span class="math inline">\(X\)</span> is SAT exam <span class="math inline">\(x_1\)</span> reading <span class="math inline">\(x_2\)</span> writing and <span class="math inline">\(x_3\)</span> is math <span class="math inline">\(\approx\)</span> all 3 are academic
+performance.</p>
+<p>We can model this with</p>
 <p><span class="math display">\[\begin{aligned}
 &amp; x_1=\mu_1+\alpha_1 F+\varepsilon_1 \\
 &amp; x_2=\mu_2+\alpha_2 F+\varepsilon_2 \\
 &amp; x_3=\mu_3+\alpha_3 F+\varepsilon_3
 \end{aligned}\]</span></p>
 <p>where <span class="math inline">\(F\)</span> is a latent variable
-that is unobserved rv assumed to have mean 0 &amp; variance 1.</p>
+that is unobserved rv assumed to have mean 0 and variance 1.</p>
 <p><span class="math inline">\(\varepsilon\)</span>’s are assumed to be
 unobserved ind. rv with mean 0 and variances <span class="math inline">\(\psi_1 \psi_2 \psi_3\)</span> and <span class="math inline">\(\varepsilon\)</span>’s and <span class="math inline">\(F\)</span> are independent.</p>
 <p>From the model <span class="math inline">\(E\left(x_j\right)=\mu_j\)</span> and <span class="math inline">\(\operatorname{Var}\left(x_j\right)=\psi_j+\alpha_j^{2}\)</span>
@@ -391,7 +392,7 @@ F+\varepsilon_2\right) \\
 X_3\right)=\alpha_1 \alpha_3\)</span> and <span class="math inline">\(\operatorname{cov}\left(X_2 X_3\right)=\alpha_2
 \alpha_3\)</span> so</p>
 <p><span class="math display">\[\sum=\left[\begin{array}{lll}
-\varphi_1+a_1^2 &amp; \alpha_1 \alpha_2 &amp; \alpha_3 \\
+\varphi_1+a_1^2 &amp; \alpha_1 \alpha_2 &amp; \alpha_1\alpha_3 \\
 \alpha_1 \alpha_2 &amp; \psi_2+\alpha_2^2 &amp; \alpha_2 \alpha_3 \\
 \alpha_1 \alpha_3 &amp; \alpha_2 \alpha_3 &amp; \psi_3+\alpha_3^2
 \end{array}\right]\]</span></p>
@@ -402,7 +403,7 @@ described in terms of a few factors.</p>
 <p><span class="math inline">\(X=\left[\begin{array}{l}x_1 \\ x_2 \\
 \vdots \\ x_p\end{array}\right]\)</span> w/ mean vector <span class="math inline">\(\mu=\left[\begin{array}{c}\mu_1 \\ \mu_2 \\ \vdots
 \\ \mu_p\end{array}\right]\)</span> and cov <span class="math inline">\(\Sigma\)</span>. The model describes <span class="math inline">\(X\)</span> in terms of a common set pf Factors
-<span class="math inline">\(F_1 \ldots F_m\)</span>.. <span class="math display">\[\begin{aligned}
+<span class="math inline">\(F_1 \ldots F_m\)</span>. <span class="math display">\[\begin{aligned}
 &amp; x_1=\mu_1+l_{11} F_1+l_{12} F_2+\ldots+l_{1 m} F_m+\varepsilon_1
 \\
 &amp; x_2=\mu_2+l_{21} F_1+l_{22} F_2+\ldots+l_{2 m} F_m+\varepsilon_2
@@ -410,7 +411,7 @@ described in terms of a few factors.</p>
 &amp; \vdots \\
 &amp; x_p=\mu_p+l_{p 1} F_1+l_{p 2} F_2+\ldots+l_{p m} F_m+\varepsilon_p
 \end{aligned}\]</span></p>
-<p>We call <span class="math inline">\(l_{j j}\)</span> loadings for the
+<p>We call <span class="math inline">\(l_{i j}\)</span> loadings for the
 <span class="math inline">\(i^{\text {th}}\)</span> variable and the
 <span class="math inline">\(j^{\text {th}}\)</span> factor in matrix
 notation: <span class="math inline">\(X=M+\mathcal{L}
@@ -475,8 +476,8 @@ l_{j 1}+l_{i 2} l_{i 1}+\ldots+l_{i m} l_{m i}\)</span>.</p>
 <p>The variance of <span class="math inline">\(X_i\)</span> can be
 written as sum of 2 terms</p>
 <p><span class="math display">\[h_i{ }^2=\underbrace{l_{i 1}{ }^2+l_{i
-2}{ }^2+\ldots+l_i{ }^2}_{\text {from common factors}} \quad \text{and}
-\quad \underbrace{\psi_i}_{\text {from specific factors }}\]</span></p>
+2}{ }^2+\ldots+l_{i m}^2}_{\text {from common factors}} \quad \text{and}
+\quad \underbrace{\psi_i}_{\text {from specific factors}}\]</span></p>
 <p><span class="math inline">\(h_i{ }^2\)</span> is called communality
 of variable <span class="math inline">\(i\)</span> and <span class="math inline">\(\psi_i\)</span> is specific variance</p>
 </div>
@@ -539,15 +540,15 @@ e_p\]</span></p>
 e_1+\sqrt{\lambda_2} z_2 e_2+\ldots+\sqrt{\lambda_p} z_p
 e_p\]</span></p>
 <p>where <span class="math inline">\(z_i\)</span>’s are uncorrelated rv
-with variance equal to 1. So if <span class="math inline">\(\lambda_{r+1} \dots \lambda_p}\)</span> are small
+with variance equal to 1. So if <span class="math inline">\(\lambda_{r+1} \dots \lambda_p\)</span> are small
 then we can represent <span class="math inline">\(X\)</span> in the
 <span class="math inline">\(r\)</span> dim.</p>
 <p><em>like PCA from a slightly different perspective</em></p>
 </div>
 <div id="non-uniqueness-of-factor-loading-matrix" class="section level2">
 <h2>Non uniqueness of Factor Loading Matrix</h2>
-<p>Consider model fer <span class="math inline">\(p\)</span> dim <span class="math inline">\(X\)</span></p>
-<p><span class="math inline">\(X=\mu+\mathbb{L}+\varepsilon\)</span></p>
+<p>Consider model for <span class="math inline">\(p\)</span> dim <span class="math inline">\(X\)</span></p>
+<p><span class="math inline">\(X=\mu+\mathbb{L}F+\varepsilon\)</span></p>
 <p>where <span class="math inline">\(\mathbb{L}\)</span> is <span class="math inline">\(p \times m\)</span> and <span class="math inline">\(F\)</span> is <span class="math inline">\(m\)</span> dim vector and <span class="math inline">\(\operatorname{cov}(F)=I\)</span>. There are many
 possible sets that could satisfy this vector space so <span class="math inline">\(\mathbb{L}\)</span> is not uniquely
 identified.</p>
@@ -662,12 +663,11 @@ F+\varepsilon\)</span></p>
 <p>or</p>
 <p><span class="math display">\[\begin{aligned}
 &amp; Y=C^{-1} L F+C^{-1} \varepsilon \\
-&amp; Y=\tilde{\mathbb{L} F}+\tilde{\varepsilon} \quad \text { where }
+&amp; Y=\tilde{\mathbb{L}} F+\tilde{\varepsilon} \quad \text { where }
 \tilde{\mathbb{L}}=\mathbb{C}^{-1} \mathbb{L} \text{ and }
 \tilde{\varepsilon}=C^{-1} \varepsilon
 \end{aligned}\]</span></p>
-<p><span class="math inline">\(\mathbb{L}\)</span> is still $p m $and
-<span class="math inline">\(\tilde{\varepsilon}\)</span> is <span class="math inline">\(p\)</span> dim vector</p>
+<p><span class="math inline">\(\mathbb{L}\)</span> is still <span class="math inline">\(p \times m\)</span> and <span class="math inline">\(\tilde{\varepsilon}\)</span> is <span class="math inline">\(p\)</span> dim vector</p>
 <p>Just need to update <span class="math inline">\(\mathbb{L} =
 C^{-1}\mathbb{L}\)</span> and <span class="math inline">\(\Psi=C^{-1}
 \Psi C^{-1}\)</span></p>
@@ -714,10 +714,9 @@ trace and inverse proporties</p>
 \Psi C\right)^{-1} S_x\right]
 \]</span></p>
 <p>and the log piece</p>
-<p><span class="math display">\[
-\left.\log \left|\left(\mathbb{L} \mathbb{L}^{-1}+\Psi\right)^{-1}
-C^{-1} S_x C^{-1}\right|=\log \mid( (C L)(C L)^1+C \Psi C)^{-1} S_x \mid
-\]</span></p>
+<p><span class="math display">\[\log \left|\left(\mathbb{L}
+\mathbb{L}^{-1}+\Psi\right)^{-1} C^{-1} S_x C^{-1}\right|=\log |( (C
+L)(C L)^\prime+C \Psi C)^{-1} S_x | \]</span></p>
 <p>So we can now say</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -732,27 +731,721 @@ S_x\right) \\
 \end{aligned}
 \]</span></p>
 <p>this shows that <span class="math inline">\(C
-\hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0\)</span> &amp; <span class="math inline">\(C \hat{\Psi_1} C=\widehat{\Psi}_0\)</span>\ But
-what about the uniqueness requirement that <span class="math inline">\(\hat{\mathbb{L}}^{\prime} \hat{\Psi}^{-1}
-\mathbb{L}\)</span> is a diagnol matrix. Suppose <span class="math inline">\(\hat{\mathbb{L}}_0^{\prime} \hat{\Psi}_0^{-1}
-\hat{\mathbb{L}}_0\)</span> is diagnol &amp; define <span class="math inline">\(\left.\hat{4}\right\} \hat{\Psi}_1\)</span> as\
+\hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0\)</span> and <span class="math inline">\(C \hat{\Psi_1} C=\widehat{\Psi}_0\)</span>.</p>
+<p>But what about the uniqueness requirement that <span class="math inline">\(\hat{\mathbb{L}}^{\prime} \hat{\Psi}^{-1}
+\mathbb{L}\)</span> is a diag. matrix.</p>
+<p>Suppose <span class="math inline">\(\hat{\mathbb{L}}_0^{\prime}
+\hat{\Psi}_0^{-1} \hat{\mathbb{L}}_0\)</span> is diag. and define as
+before (<span class="math inline">\(C
+\hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0\)</span> and <span class="math inline">\(C \hat{\Psi_1} C=\widehat{\Psi}_0\)</span>)
 then</p>
 <p><span class="math display">\[
 \hat{\mathbb{L}}_1^{\prime} \hat{\Psi}_1^{-1}
 \hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0^{\prime} C^{-1} C
 \hat{\Psi}_0^{-1} C C^{-1}
-\hat{\mathbb{L}}_0=\hat{\mathbb{U}}_0^{\prime}
-\hat{\underline{I}}_0^{-1} \hat{\mathbb{L}}_0
+\hat{\mathbb{L}}_0=\hat{\mathbb{L}}_0^{\prime} \hat{\Psi}_0^{-1}
+\hat{\mathbb{L}}_0
 \]</span></p>
-<p>thees it diagnol. It follows the</p>
+<p>thus it diag. It follows that</p>
 <p><span class="math display">\[
-\hat{\mathbb{L}}_1=C^{-1} \hat{L}_0 \quad \text { \&amp; }
+\hat{\mathbb{L}}_1=C^{-1} \hat{L}_0 \quad \text { and } \quad
 \hat{\Psi}_1=C^{-1} \hat{\Psi}_0 C^{-1}
 \]</span></p>
-<p>hence the maximum likelihood estimates of <span class="math inline">\(L \frac{1}{2}\)</span> are equivarlant.</p>
-<p>important cause scaling doesn’t matter. y it changes it’ll change in
-the way you think. q generally performed on correlation matrix so
-analysis is bared on standardized obs.</p>
+<p>hence the maximum likelihood estimates of <span class="math inline">\(L\)</span> and <span class="math inline">\(\Psi\)</span> are equivariant.</p>
+<p><strong>This is important cause scaling doesn’t matter.</strong> If
+it changes it’ll change in the way you think. Generally performed on
+correlation matrix so analysis is based on standardized obs.</p>
+</div>
+<div id="choosing-number-of-factors" class="section level2">
+<h2>Choosing Number of factors</h2>
+<p>There are 2 types of methods to pick factor numb</p>
+<ul>
+<li>measuring goodness of fit of the model</li>
+<li>variance explained</li>
+</ul>
+<p>In factor analysis model there are <span class="math inline">\(pm+p\)</span> parameters but <span class="math inline">\(\mathbb{L}\)</span> is not unique so could be
+less. There are <span class="math inline">\(pm +p - m(m-1) / 2\)</span>
+free parameters.</p>
+<p>This comes from constraints use from MLE <span class="math inline">\(\mathbb{L}^\prime \Psi \mathbb{L}\)</span> is
+diagonal matrix so off diag have to be zero, this is where the <span class="math inline">\(\frac{m(m-1)}{2}\)</span> restriction comes from
+and with covariance matrix there are <span class="math inline">\(p(p+1)
+/ 2\)</span> parameters.</p>
+<p>Thus we should consider <span class="math inline">\(m\)</span> for
+which</p>
+<p><span class="math display">\[
+p m+p-\frac{m(m-1)}{2} \leq \frac{p(p+1)}{2}
+\]</span></p>
+<p>so</p>
+<p><span class="math display">\[
+\begin{aligned}
+&amp; \frac{p(p+1)}{2}-\left(p m+p-\frac{m(m-1)}{2}\right) \\
+&amp; \frac{p(p+1)}{2}-\left(\frac{2 p m+2 p}{2}-\frac{m(m-1)}{2}\right)
+\\
+&amp; \frac{1}{2}\left(p^2+p-2 p m-2 p - m^2 -m \right) \\
+&amp; 0 \leq \frac{1}{2}\left((p-m)^2-p-m\right)
+\end{aligned}
+\]</span></p>
+<p>this is difference between number of unique parameters in an
+unrestricted <span class="math inline">\(p \times p\)</span> covariance
+matrix and the the number of unique parameters in a factor model with
+<span class="math inline">\(m\)</span> factors.</p>
+<p>So using <span class="math inline">\(\frac{1}{2} \left((p-m)^2 - p
+-m\right) \geq 0\)</span> we can find <span class="math inline">\(m^*\)</span> as the max value of <span class="math inline">\(m\)</span> to satisfy the inequality. If <span class="math inline">\(p=5\)</span> then <span class="math inline">\(m^*
+= 2\)</span> or <span class="math inline">\(p=10\)</span> then <span class="math inline">\(m^* = 6\)</span>.</p>
+<p>For variance explained we talk about total variance related to <span class="math inline">\(\Sigma\)</span> or <span class="math inline">\(\operatorname{tr}(\Sigma)\)</span>, where <span class="math inline">\(\operatorname{tr}(\Sigma) =
+\operatorname{tr}(\mathbb{L}\mathbb{L}^\prime + \Psi) =
+\operatorname{tr}(\mathbb{L}\mathbb{L}^\prime) +
+\operatorname{tr}(\Psi)\)</span>. The loadings term <span class="math inline">\(\operatorname{tr}(\mathbb{L}\mathbb{L}^\prime) =
+\sum^p l_{i1}^2 + \sum^p l_{i2}^2 + \dots + \sum^p
+l_{im}^2\)</span>.</p>
+<p>We want to compare over total variance so the proportion of variance
+from the common factors is <span class="math inline">\(\sum^m_{j=1}\sum^p_{i=1}
+l_{ij}^2/\operatorname{tr}(\Sigma)\)</span>.</p>
+<p>This depend on <span class="math inline">\(\Sigma\)</span> and <span class="math inline">\(\mathbb{L}\)</span>: denote <span class="math inline">\(\hat{\mathbb{L}}\)</span> as the MLE of <span class="math inline">\(\mathbb{L}\)</span>. and <span class="math inline">\(S\)</span> as the covariance matrix for a model
+with <span class="math inline">\(m\)</span> factors.</p>
+<p><span class="math display">\[\Phi_m = \sum^m_{j=1}\sum^p_{i=1}
+\hat{l}_{ij}^2/\operatorname{tr}(S)\]</span></p>
+<p>So the sequence <span class="math inline">\(\Phi_1, \Phi_2, \dots,
+\Phi_m\)</span> gives the useful info about explained total variance for
+different <span class="math inline">\(m\)</span>’s.</p>
+<p><em>When using the scaled observations then <span class="math inline">\(S\)</span> is correlation matrix and <span class="math inline">\(\operatorname{tr}(S) = p\)</span>.</em></p>
+<p>So we can find the <span class="math inline">\(m\)</span> which <span class="math inline">\(\Phi_m\)</span> meets at some threshold roughly
+around 0.7-0.9. Or you can look at the differences of <span class="math inline">\(\Phi_m - \Phi_{m-1}\)</span> for <span class="math inline">\(m = 2,3,\dots, m^*\)</span>. If the increase in
+the proportion of explained variance is greater than some threshold, say
+<span class="math inline">\(1/p\)</span>, the select m. With <span class="math inline">\(1/p\)</span> the increase in explained variance is
+at least as large as the average total variance per variable. But you
+could pick smaller threshold or when difference remains small but
+constant.</p>
+<p>Sometimes we want to look at variance explained by individual
+component of <span class="math inline">\(X\)</span>. Consider <span class="math inline">\(x_i\)</span> with <span class="math inline">\(\hat{h}_i^2\)</span> as communality of variable
+<span class="math inline">\(i\)</span>, <span class="math inline">\(h_i^2 = \sum_{j=1}^m l_{ij}^2\)</span>. So
+proportion is <span class="math inline">\(h_i^2/\operatorname{var}(x_i)\)</span> and when
+standardized <span class="math inline">\(\hat{h}_i^2 = \sum_{j=1}^m
+\hat{l}_{ij}^2\)</span>. So we want to include enough factors so <span class="math inline">\(\hat{h}_i^2\)</span> is large, at least 0.5 or
+0.7-0.9 range.</p>
+</div>
+<div id="for-the-foodness-of-fit-approach" class="section level2">
+<h2>For the foodness of fit approach</h2>
+<p><em>Finding smallest <span class="math inline">\(m\)</span> where
+model fits</em></p>
+<p>For a given <span class="math inline">\(m\)</span> consider null
+hypothesis <span class="math inline">\(H_0: \Sigma =
+\mathbb{L}\mathbb{L}^\prime + \Psi\)</span> with the alternative as
+<span class="math inline">\(\Sigma\)</span> is unspecified.</p>
+<p>The LRT statistics is given by <span class="math inline">\(n\log
+\frac{|\hat{\mathbb{L}}\hat{\mathbb{L}}^\prime +
+\hat{\Psi}|}{|S|}\)</span>. In practice a modified version where <span class="math inline">\(n\)</span> is replaced by <span class="math inline">\(n-1 - \frac{2p+5}{6} - 2/3m\)</span> is often
+used. This compares estimated covariance matrix under the model <span class="math inline">\(\hat{\mathbb{L}}\hat{\mathbb{L}}^\prime +
+\hat{\Psi}\)</span> to generalized variance from <span class="math inline">\(S\)</span>.</p>
+<p>Under the null this follows a <span class="math inline">\(\chi^2\)</span> distribution with df fromt he
+difference between the number of parameters in the model when <span class="math inline">\(\Sigma\)</span> is unrestricted (<span class="math inline">\(p+p(p-1)/2\)</span>) and unique parameters in
+factor analysis model <span class="math inline">\(pm+p-m(m-1)/2\)</span>. So the df is <span class="math inline">\(1/2((p-m)^2-p-m)\)</span>.</p>
+<p>To find <span class="math inline">\(m\)</span> start at <span class="math inline">\(m=1\)</span> calculate the LRT stat and if it
+doesnt fit increase to <span class="math inline">\(m=2\)</span> and so
+on.. Find the smallest <span class="math inline">\(m\)</span> that has a
+good fit suggest <span class="math inline">\(m\)</span> to pick.</p>
+<p><strong>This is a guideline</strong> not a hard and fast test.
+Waiting for <span class="math inline">\(m\)</span> that p-value is less
+than 0.05.. not recommended.</p>
+<p>The test statistic is based on assumption of MVN, may not be true in
+practice. Since running one at a time not known for each test. This is
+geneally used along with other methods as part of a process.</p>
+<p>Other ‘goodness of fit’ methods calculate <span class="math inline">\(\hat{\mathbb{L}}\hat{\mathbb{L}}^\prime +
+\hat{\Psi} - S\)</span> if it fits well then generally small value.</p>
+</div>
+<div id="rotations-of-a-loading-matrix" class="section level2">
+<h2>Rotations of a loading matrix</h2>
+<p>We know that loading <span class="math inline">\(\mathbb{L}\)</span>
+are not unique. If the model holds with a <span class="math inline">\(p\times m\)</span> loading matrix <span class="math inline">\(\mathbb{L}_0\)</span> then it also holds for <span class="math inline">\(\mathbb{L}Q\)</span> where <span class="math inline">\(Q\)</span> is <span class="math inline">\(m \times
+m\)</span> orthogonal matrix. So <span class="math inline">\(\mathbb{L}_0 \sim \mathbb{L}_1\)</span> they are
+equivarient.</p>
+<p>An analyst has the option of using a loading estimate that is
+equivarient to the maximum likelihood estimate rather than the MLE
+itself.</p>
+<p>Choosing and ‘easier’ interpreted loading matrix is <strong>factor
+rotation</strong>. We want to find an <span class="math inline">\(m
+\times m\)</span> orthogonal matrix <span class="math inline">\(\mathbb{T}\)</span> such that <span class="math inline">\(\hat{\mathbb{L}}\mathbb{T}\)</span> is
+interpreable.</p>
+<p>What is easily interpretable?</p>
+<div id="loadings-with-simple-structure" class="section level3">
+<h3>Loadings with simple structure</h3>
+<ul>
+<li>each column contains at least <span class="math inline">\(m\)</span>
+zeros</li>
+<li>each row contains at least 1 zero</li>
+<li>every pair of columns has several rows with a zero in one column but
+not in the other and several rows with zeros in both columns.
+Additionally every pair of columns should have nonzero loadings in both
+columns in only a few rows
+<ul>
+<li>depends on p and m</li>
+</ul></li>
+</ul>
+<p>The rows of loadings matrix give info about relationships between the
+components of <span class="math inline">\(X\)</span> and the factors.
+<span class="math inline">\(\operatorname{cov}(x_i, F_j) =
+l_{ij}\)</span>, so a zero in the row means that part of <span class="math inline">\(X\)</span> and a factor are uncorrelated. -
+doesn’t have to be zero just insignificant. Generally a threshold of 0.3
+or 0.4 or less is used.</p>
+<p>Best to think of zeros and nonzeros.</p>
+</div>
+<div id="rotation-example" class="section level3">
+<h3>Rotation Example</h3>
+<p>Consider the following artificial example. Let’s define the loading
+matrix <span class="math inline">\(\mathbf{L}_0\)</span>.</p>
+<pre class="r"><code>l_0 &lt;- matrix(c(1,-1,1,0,0,0,0,1,0,1,1,0,0,0,-1,0,1,1), ncol = 3)
+l_0</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    0    0
+## [2,]   -1    1    0
+## [3,]    1    0   -1
+## [4,]    0    1    0
+## [5,]    0    1    1
+## [6,]    0    0    1</code></pre>
+<p>This matrix has a “simple structure”. Consider the orthogonal matrix
+<span class="math inline">\(\mathbf{T}\)</span></p>
+<pre class="r"><code>t &lt;- matrix(c(0.61, -0.76, -0.23,0.63,0.64,-0.44,0.48,0.12,0.87), ncol = 3)
+t</code></pre>
+<pre><code>##       [,1]  [,2] [,3]
+## [1,]  0.61  0.63 0.48
+## [2,] -0.76  0.64 0.12
+## [3,] -0.23 -0.44 0.87</code></pre>
+<pre class="r"><code>t%*%t(t) ## roughly looks to be orthogonal</code></pre>
+<pre><code>##         [,1]    [,2]    [,3]
+## [1,]  0.9994 -0.0028  0.0001
+## [2,] -0.0028  1.0016 -0.0024
+## [3,]  0.0001 -0.0024  1.0034</code></pre>
+<p>Let <span class="math inline">\(\mathbf{L} = \mathbf{L}_0
+\mathbf{T}\)</span> which is given by</p>
+<pre class="r"><code>l &lt;- l_0 %*% t
+l</code></pre>
+<pre><code>##       [,1]  [,2]  [,3]
+## [1,]  0.61  0.63  0.48
+## [2,] -1.37  0.01 -0.36
+## [3,]  0.84  1.07 -0.39
+## [4,] -0.76  0.64  0.12
+## [5,] -0.99  0.20  0.99
+## [6,] -0.23 -0.44  0.87</code></pre>
+<p>From our setup we know that <span class="math inline">\(\mathbf{L}\mathbf{T}^{\prime} =
+\mathbf{L}_0\)</span> has the simple structure that we saw given above.
+Thus, ideally, a rotation method applied to <span class="math inline">\(\mathbf{L}\)</span> will recover the loading
+matrix <span class="math inline">\(\mathbf{L}_0\)</span>.</p>
+<p>From these methods (which we will explore later), infomax and
+standardized varimax give the roated loading matrix based on that</p>
+<p><span class="math display">\[\begin{equation}
+\mathbf{L} =
+\begin{bmatrix}
+    0 &amp; 1 &amp; 0 \\
+    -1 &amp; -1 &amp; 0\\
+    0 &amp; 1 &amp; -1 \\
+    -1 &amp; 0 &amp; 0 \\
+    -1 &amp; 0 &amp; 1 \\
+    0 &amp; 0 &amp; 1 \\
+    \end{bmatrix}
+\end{equation}\]</span></p>
+<p>and the others returning the rotated factor matrix <span class="math display">\[\begin{equation}
+\frac{1}{3}
+\begin{bmatrix}
+    2 &amp; 2 &amp; 1 \\
+    -4 &amp; -1 &amp; 1\\
+    1 &amp; 4 &amp; -1 \\
+    -2 &amp; 1 &amp; 2 \\
+    -1 &amp; -1 &amp; 4\\
+    1 &amp; -2 &amp; 2 \\
+    \end{bmatrix}
+
+\end{equation}\]</span></p>
+<p>Note that none of the methods produced the matrix <span class="math inline">\(\mathbf{L}_0\)</span> exactly. But the rotated
+loading matrix using the std varimax and infomax would be <span class="math inline">\(\mathbf{L}_0\)</span> if columns 1 and 2 are
+switched. Such a change amounts to simply renaming factor 1 and factor 2
+and renaming factor 2 and factor 1. So they are practically the same
+after some renaming. This is true in general, there is no practical
+difference between two loading matrices which have the same columns (but
+possibly in different orders).</p>
+<p>The other methods failed to identify the simple loading matrix <span class="math inline">\(\mathbf{L}_0\)</span>; this a because of the fact
+that the criterion functions used in all the rotations methods are only
+indirectly related to the requirements of simple structure. However,
+there is a sense in which the loading matrix has a simple structure.
+Specifically, if the entries of this matrix with <span class="math inline">\(\pm 1/3\)</span> are written as <span class="math inline">\(O\)</span> and the other entries are written and
+<span class="math inline">\(X\)</span> the matrix is based on the
+pattern.</p>
+<p><span class="math display">\[\begin{equation}
+\begin{bmatrix}
+    X &amp; X &amp; O \\
+    X &amp; O &amp; O \\
+    O &amp; X &amp; O \\
+    X &amp; O &amp; X \\
+    O &amp; O &amp; X \\
+    O &amp; X &amp; X \\
+    \end{bmatrix}
+\end{equation}\]</span></p>
+<p>Which does satisfy the requirements of a simple structure, thus using
+a cut-off point of <span class="math inline">\(1/3\)</span> (or larger),
+the rotated loading matrix based on the varimax, quartimax, and equamax,
+methods does have a simple structure but a different simple structure
+than that of the <span class="math inline">\(\mathbf{L}_0\)</span> we
+defined. Furthermore, because the different variables will generally be
+measuring different features of the subjects, the interpretations of the
+factors based on the two loading matrices will be different, in general.
+This is also a general property of different rotation methods - the
+different rotated loading matrices will generally lead to different
+interpretations fo the factors and the interpretations that is most
+useful scientifically will depend on the specifics of the data being
+analyzed. Because of this, it is generally a good idea to consider the
+results from several methods of rotation. Note that choosing a rotation
+method is different than choosing an estimation method. For estimation,
+some methods are provably better than others and it is inappropriate to
+try several methods an choose the estimate that the analyst prefers.
+However, when considering factor rotations, any method is acceptable and
+the analyst is free to try several methods and choose the rotated
+loadings that are easiest to interpret. Recall that any two factor
+loading matrices related to an orthogonal transformation describe the
+same model for the data.</p>
+</div>
+<div id="computation-of-factor-rotations" class="section level3">
+<h3>Computation of Factor Rotations</h3>
+<p>Rotation criteria: difficult directly choose othogonal transformation
+of the loadings..</p>
+<p>The basic approach is to choose a criterion function <span class="math inline">\(\kappa(\cdot)\)</span> and then find the
+orthogonal matrix <span class="math inline">\(\mathbf{T}\)</span> that
+maximizes <span class="math inline">\(\kappa(\hat{\mathbf{L}}\mathbf{T})\)</span>. Thus
+this is a constrained optimization problem, with the constraints arising
+from the fact that <span class="math inline">\(\mathbf{T}\)</span> is
+orthogonal. So this is found by maximizing <span class="math inline">\(\kappa(\hat{\mathbf{L}}\mathbf{T})\)</span> over
+the <span class="math inline">\(m^2\)</span> elements of <span class="math inline">\(\mathbf{T}\)</span> subject to the restriction
+that <span class="math inline">\(\mathbf{T}^{\prime} \mathbf{T} =
+\mathbf{I}\)</span>. (Crawford - Ferguson)</p>
+<p>Commonly used criterion functions - varimax: sum of sample variances
+of columns of the squared loading matrix. So if a small value then high
+variation in magnitudes of loadings in each column. (somtimes
+standardized varimax <span class="math inline">\(l_{ij}^2/(1-\Psi)\)</span>) - quartimax: same as
+varimax but on the rows - equamax: uses both rows and columns - infomax:
+different than rest. Views loading matrix as <span class="math inline">\(p\times m\)</span> contingency table. If tested
+and ‘not independent’ (associated) then those are kept.</p>
+<p>Lets look at the GPArotation package in R. <a href="https://cran.r-project.org/web/packages/GPArotation/GPArotation.pdf" class="uri">https://cran.r-project.org/web/packages/GPArotation/GPArotation.pdf</a></p>
+<pre class="r"><code>library(GPArotation)
+Varimax(l)</code></pre>
+<pre><code>## Orthogonal rotation method varimax converged.
+## Loadings:
+##        [,1]   [,2]   [,3]
+## [1,] -0.667  0.665  0.333
+## [2,]  1.336 -0.332  0.332
+## [3,] -0.334  1.334 -0.334
+## [4,]  0.669  0.334  0.665
+## [5,]  0.335 -0.335  1.332
+## [6,] -0.334 -0.669  0.667
+## 
+##                 [,1]  [,2]  [,3]
+## SS loadings    3.014 3.004 2.996
+## Proportion Var 0.502 0.501 0.499
+## Cumulative Var 0.502 1.003 1.502</code></pre>
+<pre class="r"><code>## different than stats varimax which normalizes be default gpa does not
+## like standardized
+stats::varimax(l) </code></pre>
+<pre><code>## $loadings
+## 
+## Loadings:
+##      [,1]   [,2]   [,3]  
+## [1,]         1.000       
+## [2,] -1.003 -1.001       
+## [3,]         0.999 -1.002
+## [4,] -1.001              
+## [5,] -0.999         1.001
+## [6,]                1.002
+## 
+##                 [,1]  [,2]  [,3]
+## SS loadings    3.005 2.999 3.010
+## Proportion Var 0.501 0.500 0.502
+## Cumulative Var 0.501 1.001 1.502
+## 
+## $rotmat
+##            [,1]      [,2]       [,3]
+## [1,]  0.7590333 0.6085895 -0.2312731
+## [2,] -0.6397383 0.6312633 -0.4384535
+## [3,] -0.1208440 0.4807551  0.8684879</code></pre>
+<pre class="r"><code>## other functions in the package
+infomaxT(l) ## T is for othogonal </code></pre>
+<pre><code>## Orthogonal rotation method Infomax converged.
+## Loadings:
+##           [,1]      [,2]      [,3]
+## [1,] -0.000467 -0.001722  0.999698
+## [2,] -0.000326  1.002521 -1.000775
+## [3,] -1.002164 -0.000119  0.999133
+## [4,] -0.000793  1.000799 -0.001077
+## [5,]  1.000904  0.999195 -0.000512
+## [6,]  1.001697 -0.001604  0.000565
+## 
+##                 [,1]  [,2]  [,3]
+## SS loadings    3.010 3.005 2.999
+## Proportion Var 0.502 0.501 0.500
+## Cumulative Var 0.502 1.002 1.502</code></pre>
+<pre class="r"><code>quartimax(l)</code></pre>
+<pre><code>## Orthogonal rotation method Quartimax converged.
+## Loadings:
+##        [,1]   [,2]   [,3]
+## [1,] -0.667  0.665  0.334
+## [2,]  1.337 -0.331  0.331
+## [3,] -0.335  1.334 -0.333
+## [4,]  0.669  0.334  0.665
+## [5,]  0.337 -0.335  1.332
+## [6,] -0.333 -0.669  0.667
+## 
+##                 [,1]  [,2]  [,3]
+## SS loadings    3.017 3.003 2.994
+## Proportion Var 0.503 0.501 0.499
+## Cumulative Var 0.503 1.003 1.502</code></pre>
+<pre class="r"><code>## equamax not names but still possible
+cfT(l, kappa = 1/4) ## see notes in package detail about equamax = m/(2*p)</code></pre>
+<pre><code>## Orthogonal rotation method Equamax converged.
+## Loadings:
+##        [,1]   [,2]   [,3]
+## [1,] -0.667  0.666  0.333
+## [2,]  1.336 -0.332  0.333
+## [3,] -0.333  1.334 -0.334
+## [4,]  0.669  0.333  0.666
+## [5,]  0.335 -0.335  1.333
+## [6,] -0.334 -0.668  0.667
+## 
+##                 [,1]  [,2]  [,3]
+## SS loadings    3.013 3.004 2.997
+## Proportion Var 0.502 0.501 0.499
+## Cumulative Var 0.502 1.003 1.502</code></pre>
+</div>
+</div>
+<div id="factor-oblique-rotations" class="section level2">
+<h2>Factor Oblique Rotations</h2>
+<p>Relaxing the restrictions for a transformation that is not orthogonal
+to a transformation <span class="math inline">\(\mathbf{M}\)</span> that
+is an invertible matrix satisfying the requirement that the diagonal
+elements of <span class="math inline">\(\mathbf{M}\mathbf{M}^{\prime}\)</span> are 1. What
+this criterion looks like for a function <span class="math inline">\(\kappa(\cdot)\)</span> is finding an <span class="math inline">\(m \times m\)</span> nonsigular matrix <span class="math inline">\(\mathbf{T}\)</span> that maximizes <span class="math inline">\(\kappa(\hat{\mathbf{L}}\mathbf{T})\)</span>
+subject to the restriction that the diagonal elements of <span class="math inline">\(\mathbf{T}^{-1}(\mathbf{T}^{-1})^{\prime}\)</span>.</p>
+<pre class="r"><code>## still from GPArotation package
+oblimin(l)</code></pre>
+<pre><code>## Oblique rotation method Oblimin Quartimin converged.
+## Loadings:
+##        [,1]   [,2]   [,3]
+## [1,] -0.658  0.656  0.491
+## [2,]  1.316 -0.165  0.165
+## [3,] -0.166  1.314 -0.165
+## [4,]  0.658  0.491  0.656
+## [5,]  0.166 -0.166  1.312
+## [6,] -0.492 -0.658  0.656
+## 
+##                 [,1]  [,2]  [,3]
+## SS loadings    3.013 3.004 2.997
+## Proportion Var 0.502 0.501 0.500
+## Cumulative Var 0.502 1.003 1.502
+## 
+## Phi:
+##        [,1]   [,2]   [,3]
+## [1,]  1.000 -0.240  0.241
+## [2,] -0.240  1.000 -0.242
+## [3,]  0.241 -0.242  1.000</code></pre>
+<pre class="r"><code>infomaxQ(l)</code></pre>
+<pre><code>## Oblique rotation method Infomax converged.
+## Loadings:
+##         [,1]    [,2]    [,3]
+## [1,] -0.6931  0.6926  0.6592
+## [2,]  1.3860 -0.0329  0.0329
+## [3,] -0.0327  1.3848 -0.0327
+## [4,]  0.6929  0.6596  0.6921
+## [5,]  0.0326 -0.0325  1.3840
+## [6,] -0.6604 -0.6922  0.6919
+## 
+##                 [,1]  [,2]  [,3]
+## SS loadings    3.011 3.004 2.999
+## Proportion Var 0.502 0.501 0.500
+## Cumulative Var 0.502 1.002 1.502
+## 
+## Phi:
+##        [,1]   [,2]   [,3]
+## [1,]  1.000 -0.451  0.452
+## [2,] -0.451  1.000 -0.454
+## [3,]  0.452 -0.454  1.000</code></pre>
+<pre class="r"><code>cfQ(l, kappa = 1/4)</code></pre>
+<pre><code>## Oblique rotation method Equamax converged.
+## Loadings:
+##        [,1]   [,2]   [,3]
+## [1,] -0.656  0.655  0.465
+## [2,]  1.311 -0.189  0.189
+## [3,] -0.189  1.310 -0.190
+## [4,]  0.656  0.466  0.654
+## [5,]  0.189 -0.190  1.309
+## [6,] -0.467 -0.655  0.654
+## 
+##                 [,1]  [,2]  [,3]
+## SS loadings    3.011 3.004 2.999
+## Proportion Var 0.502 0.501 0.500
+## Cumulative Var 0.502 1.002 1.502
+## 
+## Phi:
+##        [,1]   [,2]   [,3]
+## [1,]  1.000 -0.201  0.203
+## [2,] -0.201  1.000 -0.204
+## [3,]  0.203 -0.204  1.000</code></pre>
+</div>
+<div id="factor-scores" class="section level2">
+<h2>Factor Scores</h2>
+<p>Sometimes we might want to determine the values of <span class="math inline">\(F\)</span> for each subject because we want to
+know the influence they have on <span class="math inline">\(X\)</span>.
+But <span class="math inline">\(F\)</span> for a given subject is not an
+knowns parameter, its an unobservable random vector hence it can’t be
+estimated in the usual sense.</p>
+<p>We can determine the ‘observed values’ of <span class="math inline">\(F\)</span> that correstpond to the observed data.
+These are called factor scores.</p>
+<p>Given the model <span class="math inline">\(X = \mu +\mathbb{L}F +
+\varepsilon\)</span>.</p>
+<p><span class="math inline">\(X\)</span> is obserbedd, <span class="math inline">\(F\)</span> is not so ‘best predictor’ would be
+conditional on expectation <span class="math inline">\(E(F|X)\)</span>.
+Need joint distribution to do that.</p>
+<p>Assume the random vector of <span class="math inline">\(X\)</span>
+and <span class="math inline">\(F\)</span> are MVN distribution with
+mean vector <span class="math inline">\(\mu\)</span> and 0 respectively.
+To get covariance matrix:</p>
+<p>We know <span class="math inline">\(\operatorname{cov}(x) =
+\mathbb{L}\mathbb{L}^\prime + \Psi\)</span> and</p>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>Let’s look at the sesame street dataset again but with factor
+analysis in mind. We will analyze all the test scores, those from the
+pretests along with those from the postests.</p>
+<pre class="r"><code>library(tidyverse)
+sesame &lt;- read_csv(&quot;data/sesame.csv&quot;)
+test_sesame &lt;- sesame %&gt;% 
+  select(starts_with(&quot;pre&quot;), starts_with(&quot;post&quot;)) %&gt;% 
+  select(-pretest) # don&#39;t want pretest
+
+head(test_sesame)</code></pre>
+<pre><code>## # A tibble: 6 × 12
+##   prebody prelet preform prenumb prerelat preclasf postbody postlet postform
+##     &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;
+## 1      16     23      12      40       14       20       18      30       14
+## 2      30     26       9      39       16       22       30      37       17
+## 3      22     14       9       9        9        8       21      46       15
+## 4      23     11      10      14        9       13       21      14       13
+## 5      32     47      15      51       17       22       32      63       18
+## 6      29     26      10      33       14       14       27      36       14
+## # ℹ 3 more variables: postnumb &lt;dbl&gt;, postrelat &lt;dbl&gt;, postclasf &lt;dbl&gt;</code></pre>
+<div id="choosing-the-number-of-factors" class="section level3">
+<h3>Choosing the number of factors</h3>
+<p>We have 12 variables so remembering equation <span class="math inline">\(\frac{1}{2}((p-m)^2 -p-m) \geq 0\)</span> the max
+number of factors we could have is 7, so lets test out models with 1-7
+factors and look at the relevent statistics.</p>
+<pre class="r"><code>fa_size &lt;- lapply(1:7, function(i) factanal(test_sesame, i))
+
+fa_size[[1]]$uniquenesses</code></pre>
+<pre><code>##   prebody    prelet   preform   prenumb  prerelat  preclasf  postbody   postlet 
+## 0.4320770 0.6294166 0.4346862 0.3511153 0.5466043 0.4517770 0.4598867 0.3187713 
+##  postform  postnumb postrelat postclasf 
+## 0.4291123 0.2296186 0.5869416 0.3475983</code></pre>
+<pre class="r"><code>## take 1 - sum of loadings / tr
+phi &lt;- simplify(lapply(1:7, function(x) 1-sum(fa_size[[x]]$uniquenesses)/12))
+phi</code></pre>
+<pre><code>## [1] 0.5651996 0.6505358 0.6876365 0.7177619 0.7478549 0.7950997 0.8021256</code></pre>
+<pre class="r"><code>phi[-1] - phi[-7] ## phi_m - phi_m-1</code></pre>
+<pre><code>## [1] 0.085336280 0.037100620 0.030125454 0.030092956 0.047244868 0.007025887</code></pre>
+<pre class="r"><code> ## want something around 0.7 or small difference
+### so 4,5,6 factors seem reasonable
+
+## look at communality 1- uniq
+1-fa_size[[4]]$uniquenesses</code></pre>
+<pre><code>##   prebody    prelet   preform   prenumb  prerelat  preclasf  postbody   postlet 
+## 0.7463602 0.6461808 0.6548935 0.8693394 0.6048056 0.7016399 0.6786425 0.7856016 
+##  postform  postnumb postrelat postclasf 
+## 0.7433326 0.8362436 0.4643154 0.8817880</code></pre>
+<pre class="r"><code>1-fa_size[[5]]$uniquenesses</code></pre>
+<pre><code>##   prebody    prelet   preform   prenumb  prerelat  preclasf  postbody   postlet 
+## 0.7724936 0.5871026 0.6917718 0.9790817 0.5919040 0.8034937 0.6537102 0.9950000 
+##  postform  postnumb postrelat postclasf 
+## 0.7356863 0.8044638 0.4778185 0.8817321</code></pre>
+<pre class="r"><code>1-fa_size[[6]]$uniquenesses</code></pre>
+<pre><code>##   prebody    prelet   preform   prenumb  prerelat  preclasf  postbody   postlet 
+## 0.8020502 0.9950000 0.6518747 0.8525431 0.6446944 0.9950000 0.6747913 0.7483358 
+##  postform  postnumb postrelat postclasf 
+## 0.9950000 0.9561402 0.4633731 0.7623941</code></pre>
+<pre class="r"><code>## really changing variable to variable but kind of a jump between 5 and 6
+
+## can also look at pval from LRT
+fa_size[[4]]$PVAL</code></pre>
+<pre><code>##    objective 
+## 4.831978e-06</code></pre>
+<pre class="r"><code>fa_size[[5]]$PVAL</code></pre>
+<pre><code>##  objective 
+## 0.01030069</code></pre>
+<pre class="r"><code>fa_size[[6]]$PVAL</code></pre>
+<pre><code>## objective 
+## 0.2042373</code></pre>
+<pre class="r"><code>## 5 seems like a decent choice in the middle
+## lets look at the estimated correlation matrix from loading
+## L * L^prime + diag(loadings)
+est_corr5 &lt;- fa_size[[5]]$loadings %*% t(fa_size[[5]]$loadings) + diag(fa_size[[5]]$uniquenesses)
+est_corr5</code></pre>
+<pre><code>##             prebody    prelet   preform   prenumb  prerelat  preclasf  postbody
+## prebody   0.9999996 0.4585510 0.6739963 0.6957121 0.6125514 0.6146567 0.6418282
+## prelet    0.4585510 1.0000003 0.4686776 0.7167979 0.5153287 0.4986688 0.3486962
+## preform   0.6739963 0.4686776 1.0000006 0.6717778 0.6094587 0.7109544 0.5527769
+## prenumb   0.6957121 0.7167979 0.6717778 1.0000000 0.7168550 0.7139455 0.5136737
+## prerelat  0.6125514 0.5153287 0.6094587 0.7168550 1.0000019 0.6313998 0.4563996
+## preclasf  0.6146567 0.4986688 0.7109544 0.7139455 0.6313998 1.0000004 0.4789025
+## postbody  0.6418282 0.3486962 0.5527769 0.5136737 0.4563996 0.4789025 1.0000017
+## postlet   0.5501085 0.5562912 0.5601956 0.6062152 0.4860973 0.5238750 0.6424699
+## postform  0.5184709 0.3201462 0.5144844 0.4894665 0.4002931 0.5236391 0.6073896
+## postnumb  0.6068777 0.5124517 0.5820562 0.6743543 0.5166690 0.5703612 0.6541303
+## postrelat 0.4646559 0.3041740 0.3976773 0.4517435 0.3410117 0.3636140 0.5179329
+## postclasf 0.5145916 0.3744405 0.5410399 0.5601137 0.4330054 0.5849310 0.6111381
+##             postlet  postform  postnumb postrelat postclasf
+## prebody   0.5501085 0.5184709 0.6068777 0.4646559 0.5145916
+## prelet    0.5562912 0.3201462 0.5124517 0.3041740 0.3744405
+## preform   0.5601956 0.5144844 0.5820562 0.3976773 0.5410399
+## prenumb   0.6062152 0.4894665 0.6743543 0.4517435 0.5601137
+## prerelat  0.4860973 0.4002931 0.5166690 0.3410117 0.4330054
+## preclasf  0.5238750 0.5236391 0.5703612 0.3636140 0.5849310
+## postbody  0.6424699 0.6073896 0.6541303 0.5179329 0.6111381
+## postlet   1.0000002 0.6526518 0.8163937 0.5423782 0.6960273
+## postform  0.6526518 0.9999981 0.7128520 0.5629179 0.7956617
+## postnumb  0.8163937 0.7128520 1.0000017 0.5909216 0.7723468
+## postrelat 0.5423782 0.5629179 0.5909216 0.9999971 0.5982638
+## postclasf 0.6960273 0.7956617 0.7723468 0.5982638 0.9999997</code></pre>
+<pre class="r"><code>## compare with sample correlation matrix
+round(est_corr5 - cor(test_sesame), 2)</code></pre>
+<pre><code>##           prebody prelet preform prenumb prerelat preclasf postbody postlet
+## prebody      0.00   0.01   -0.01       0    -0.01     0.01     0.00       0
+## prelet       0.01   0.00   -0.04       0     0.04     0.01     0.00       0
+## preform     -0.01  -0.04    0.00       0     0.01     0.00     0.01       0
+## prenumb      0.00   0.00    0.00       0     0.00     0.00     0.00       0
+## prerelat    -0.01   0.04    0.01       0     0.00    -0.01     0.03       0
+## preclasf     0.01   0.01    0.00       0    -0.01     0.00    -0.01       0
+## postbody     0.00   0.00    0.01       0     0.03    -0.01     0.00       0
+## postlet      0.00   0.00    0.00       0     0.00     0.00     0.00       0
+## postform     0.02   0.02   -0.02       0     0.00     0.01    -0.03       0
+## postnumb     0.01   0.01   -0.01       0    -0.02     0.00     0.01       0
+## postrelat    0.01  -0.02    0.00       0     0.00    -0.01     0.00       0
+## postclasf   -0.01   0.00    0.01       0     0.01     0.00     0.01       0
+##           postform postnumb postrelat postclasf
+## prebody       0.02     0.01      0.01     -0.01
+## prelet        0.02     0.01     -0.02      0.00
+## preform      -0.02    -0.01      0.00      0.01
+## prenumb       0.00     0.00      0.00      0.00
+## prerelat      0.00    -0.02      0.00      0.01
+## preclasf      0.01     0.00     -0.01      0.00
+## postbody     -0.03     0.01      0.00      0.01
+## postlet       0.00     0.00      0.00      0.00
+## postform      0.00     0.03      0.00      0.00
+## postnumb      0.03     0.00     -0.05      0.00
+## postrelat     0.00    -0.05      0.00      0.01
+## postclasf     0.00     0.00      0.01      0.00</code></pre>
+<pre class="r"><code>## pretty close</code></pre>
+</div>
+<div id="estimation-and-rotation" class="section level3">
+<h3>Estimation and Rotation</h3>
+<p>In the <code>factanal</code> function the default rotation method is
+varimax so that has already been performed on the loading matrix.</p>
+<pre class="r"><code>fa_size[[5]]$loadings</code></pre>
+<pre><code>## 
+## Loadings:
+##           Factor1 Factor2 Factor3 Factor4 Factor5
+## prebody   0.322   0.372   0.369   0.623          
+## prelet    0.172   0.672   0.197           0.241  
+## preform   0.300   0.346   0.573   0.362   0.150  
+## prenumb   0.312   0.840   0.333   0.253          
+## prerelat  0.195   0.513   0.433   0.308          
+## preclasf  0.313   0.400   0.718   0.150          
+## postbody  0.533   0.171   0.210   0.501   0.214  
+## postlet   0.575   0.360   0.161   0.187   0.689  
+## postform  0.774   0.130   0.268   0.180   0.122  
+## postnumb  0.686   0.388   0.196   0.233   0.301  
+## postrelat 0.592   0.208           0.264          
+## postclasf 0.857   0.204   0.301                  
+## 
+##                Factor1 Factor2 Factor3 Factor4 Factor5
+## SS loadings      3.226   2.249   1.593   1.157   0.749
+## Proportion Var   0.269   0.187   0.133   0.096   0.062
+## Cumulative Var   0.269   0.456   0.589   0.685   0.748</code></pre>
+<pre class="r"><code>## cut off here for printing is .10
+
+## if we want to view only those over 0.4
+print(fa_size[[5]]$loadings, cutoff = 0.4)</code></pre>
+<pre><code>## 
+## Loadings:
+##           Factor1 Factor2 Factor3 Factor4 Factor5
+## prebody                           0.623          
+## prelet            0.672                          
+## preform                   0.573                  
+## prenumb           0.840                          
+## prerelat          0.513   0.433                  
+## preclasf          0.400   0.718                  
+## postbody  0.533                   0.501          
+## postlet   0.575                           0.689  
+## postform  0.774                                  
+## postnumb  0.686                                  
+## postrelat 0.592                                  
+## postclasf 0.857                                  
+## 
+##                Factor1 Factor2 Factor3 Factor4 Factor5
+## SS loadings      3.226   2.249   1.593   1.157   0.749
+## Proportion Var   0.269   0.187   0.133   0.096   0.062
+## Cumulative Var   0.269   0.456   0.589   0.685   0.748</code></pre>
+<p>What do you see? Remember that factors are supposed to be
+uncorrelated from each other which could make this interpretation
+difficult.</p>
+<p>Try out more rotation methods using
+<code>factanal(test_sesame, rotation = &quot;criterion here&quot;)</code> How does
+it compare with correlation matrix and LRT? What does the loading matrix
+look like? How would we interpret it?</p>
+</div>
+<div id="estimation-of-factor-scores" class="section level3">
+<h3>Estimation of factor scores</h3>
+<p>Inside the <code>factanal</code> function the scores are given within
+the function as part of the output if told to do so with
+<code>scores = &quot;regression&quot;</code>.</p>
+<pre class="r"><code>factanal(test_sesame, 5, scores = &quot;regression&quot;)$scores %&gt;% 
+  bind_cols(test_sesame) %&gt;% 
+  head()</code></pre>
+<pre><code>## # A tibble: 6 × 17
+##   Factor1 Factor2 Factor3 Factor4 Factor5 prebody prelet preform prenumb
+##     &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1   0.729   2.07    0.982 -2.12    -0.982      16     23      12      40
+## 2   0.586   1.35    1.07   0.0712  -0.353      30     26       9      39
+## 3   0.718  -1.23   -0.583 -0.400    2.35       22     14       9       9
+## 4  -0.383  -0.860   0.814 -0.0431  -0.786      23     11      10      14
+## 5   0.215   2.83    0.697  0.223    2.03       32     47      15      51
+## 6   1.03    0.997  -0.134  0.163   -0.388      29     26      10      33
+## # ℹ 8 more variables: prerelat &lt;dbl&gt;, preclasf &lt;dbl&gt;, postbody &lt;dbl&gt;,
+## #   postlet &lt;dbl&gt;, postform &lt;dbl&gt;, postnumb &lt;dbl&gt;, postrelat &lt;dbl&gt;,
+## #   postclasf &lt;dbl&gt;</code></pre>
+<pre class="r"><code>factanal(test_sesame, 5, scores = &quot;regression&quot;)$scores %&gt;% 
+  bind_cols(child = sesame$id) %&gt;% 
+  ggplot(aes(Factor1, Factor2)) +
+  geom_point()</code></pre>
+<p><img src="data:image/png;base64,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" width="672" /></p>
+</div>
+</div>
+<div id="try-on-your-own" class="section level2">
+<h2>Try on your own</h2>
+<p>Perform factor analysis with different rotations (oblique included)
+and look at their factor scores on the dataset <code>penguins</code>.
+You could also</p>
+<pre class="r"><code>library(palmerpenguins)
+penguins %&gt;% 
+  select(bill_length_mm:body_mass_g) %&gt;% 
+  drop_na()</code></pre>
+<pre><code>## # A tibble: 342 × 4
+##    bill_length_mm bill_depth_mm flipper_length_mm body_mass_g
+##             &lt;dbl&gt;         &lt;dbl&gt;             &lt;int&gt;       &lt;int&gt;
+##  1           39.1          18.7               181        3750
+##  2           39.5          17.4               186        3800
+##  3           40.3          18                 195        3250
+##  4           36.7          19.3               193        3450
+##  5           39.3          20.6               190        3650
+##  6           38.9          17.8               181        3625
+##  7           39.2          19.6               195        4675
+##  8           34.1          18.1               193        3475
+##  9           42            20.2               190        4250
+## 10           37.8          17.1               186        3300
+## # ℹ 332 more rows</code></pre>
+<pre class="r"><code>data(&quot;USArrests&quot;)</code></pre>
 </div>
 </div>
 

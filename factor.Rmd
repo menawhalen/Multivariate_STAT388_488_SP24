@@ -11,7 +11,8 @@ Generally used to describe the correlation structure of a random vector in terms
 
 E.g. Let $x$ be three dim random vector. with $x_1, x_2, x_3$ denote the coordinate rv. Let $\Sigma$ denote covariance matrix of $x$. Its reasonable to assume that the correlations between $x_1, x_2, x_3$ are due to some characteristic that affect all three measurements.
 
-Example: $X$ is SAT exam $x_1$ reading $x_2$ writing and $x_3$ is math $\approx$ all 3 are academic performance\\
+Example: $X$ is SAT exam $x_1$ reading $x_2$ writing and $x_3$ is math $\approx$ all 3 are academic performance.
+
 We can model this with
 
 $$\begin{aligned}
@@ -20,7 +21,7 @@ $$\begin{aligned}
 & x_3=\mu_3+\alpha_3 F+\varepsilon_3
 \end{aligned}$$
 
-where $F$ is a latent variable that is unobserved rv assumed to have mean 0 \& variance 1.
+where $F$ is a latent variable that is unobserved rv assumed to have mean 0 and variance 1.
 
 $\varepsilon$'s are assumed to be unobserved ind. rv with mean 0 and variances $\psi_1 \psi_2 \psi_3$ and $\varepsilon$'s and  $F$ are independent.
 
@@ -34,7 +35,7 @@ $$\begin{aligned}
 So $\operatorname{cov}\left(X_1 X_3\right)=\alpha_1 \alpha_3$ and $\operatorname{cov}\left(X_2 X_3\right)=\alpha_2 \alpha_3$ so
 
 $$\sum=\left[\begin{array}{lll}
-\varphi_1+a_1^2 & \alpha_1 \alpha_2 & \alpha_3 \\
+\varphi_1+a_1^2 & \alpha_1 \alpha_2 & \alpha_1\alpha_3 \\
 \alpha_1 \alpha_2 & \psi_2+\alpha_2^2 & \alpha_2 \alpha_3 \\
 \alpha_1 \alpha_3 & \alpha_2 \alpha_3 & \psi_3+\alpha_3^2
 \end{array}\right]$$
@@ -43,7 +44,7 @@ This is most useful when high dimensional response vectors can be described in t
 
 ## Factor Analysis Model
 $X=\left[\begin{array}{l}x_1 \\ x_2 \\ \vdots \\ x_p\end{array}\right]$ w/ mean vector $\mu=\left[\begin{array}{c}\mu_1 \\ \mu_2 \\ \vdots \\ \mu_p\end{array}\right]$ and cov $\Sigma$. 
-The model describes $X$ in terms of a common set pf Factors $F_1 \ldots F_m$..
+The model describes $X$ in terms of a common set pf Factors $F_1 \ldots F_m$.
 $$\begin{aligned}
 & x_1=\mu_1+l_{11} F_1+l_{12} F_2+\ldots+l_{1 m} F_m+\varepsilon_1 \\
 & x_2=\mu_2+l_{21} F_1+l_{22} F_2+\ldots+l_{2 m} F_m+\varepsilon_2 \\
@@ -51,7 +52,7 @@ $$\begin{aligned}
 & x_p=\mu_p+l_{p 1} F_1+l_{p 2} F_2+\ldots+l_{p m} F_m+\varepsilon_p
 \end{aligned}$$
 
-We call $l_{j j}$ loadings for the $i^{\text {th}}$ variable and the $j^{\text {th}}$ factor in matrix notation: $X=M+\mathcal{L} F+\varepsilon$.
+We call $l_{i j}$ loadings for the $i^{\text {th}}$ variable and the $j^{\text {th}}$ factor in matrix notation: $X=M+\mathcal{L} F+\varepsilon$.
 
 where $\mathcal{L}$ is a $p \times m$ nonrandom matrix of factor loadings. $F$ is $m$-dim unobserved random vector with mean  0 and covariance matrix $I_m$ and $\varepsilon$ is $p$ dim unobserved random vector with mean 0 and covariance $\Psi$ (diagonal matrix $\left.\varphi_1 \varphi_2 \ldots \varphi_p\right)$. $F$ and $\varepsilon$ are independent.
 
@@ -96,7 +97,7 @@ so $\operatorname{var}\left(x_i\right)=l_{i 1}^2+l_{i 2}^2+\ldots+l_{i m}^2+\psi
 
 The variance of $X_i$ can be written as sum of 2 terms
 
-$$h_i{ }^2=\underbrace{l_{i 1}{ }^2+l_{i 2}{ }^2+\ldots+l_i{ }^2}_{\text {from common factors}} \quad \text{and} \quad \underbrace{\psi_i}_{\text {from specific factors }}$$
+$$h_i{ }^2=\underbrace{l_{i 1}{ }^2+l_{i 2}{ }^2+\ldots+l_{i m}^2}_{\text {from common factors}} \quad \text{and} \quad \underbrace{\psi_i}_{\text {from specific factors}}$$
 
 $h_i{ }^2$ is called communality of variable $i$ and $\psi_i$ is specific variance
 
@@ -155,15 +156,15 @@ also can write
 
 $$X=\sqrt{\lambda_1} z_1 e_1+\sqrt{\lambda_2} z_2 e_2+\ldots+\sqrt{\lambda_p} z_p e_p$$
 
-where $z_i$'s are uncorrelated rv with variance equal to 1. So if $\lambda_{r+1} \dots \lambda_p}$ are small then we can represent $X$ in the $r$ dim.
+where $z_i$'s are uncorrelated rv with variance equal to 1. So if $\lambda_{r+1} \dots \lambda_p$ are small then we can represent $X$ in the $r$ dim.
 
 *like PCA from a slightly different perspective*
 
 ## Non uniqueness of Factor Loading Matrix
 
-Consider model fer $p$ dim $X$
+Consider model for $p$ dim $X$
 
-$X=\mu+\mathbb{L}+\varepsilon$ 
+$X=\mu+\mathbb{L}F+\varepsilon$ 
 
 where $\mathbb{L}$ is $p \times m$  and $F$ is  $m$ dim vector and  $\operatorname{cov}(F)=I$. There are many possible sets that could satisfy this vector space so $\mathbb{L}$ is not uniquely identified.
 
@@ -282,10 +283,10 @@ or
 
 $$\begin{aligned}
 & Y=C^{-1} L F+C^{-1} \varepsilon \\
-& Y=\tilde{\mathbb{L} F}+\tilde{\varepsilon} \quad \text { where } \tilde{\mathbb{L}}=\mathbb{C}^{-1} \mathbb{L} \text{ and } \tilde{\varepsilon}=C^{-1} \varepsilon
+& Y=\tilde{\mathbb{L}} F+\tilde{\varepsilon} \quad \text { where } \tilde{\mathbb{L}}=\mathbb{C}^{-1} \mathbb{L} \text{ and } \tilde{\varepsilon}=C^{-1} \varepsilon
 \end{aligned}$$
 
-$\mathbb{L}$ is still $p \times m $and  $\tilde{\varepsilon}$ is $p$ dim vector
+$\mathbb{L}$ is still $p \times m$ and  $\tilde{\varepsilon}$ is $p$ dim vector
 
 Just need to update $\mathbb{L} = C^{-1}\mathbb{L}$ and $\Psi=C^{-1} \Psi C^{-1}$
 
@@ -328,9 +329,7 @@ $$
 
 and the log piece
 
-$$
-\left.\log \left|\left(\mathbb{L} \mathbb{L}^{-1}+\Psi\right)^{-1} C^{-1} S_x C^{-1}\right|=\log \mid( (C L)(C L)^1+C \Psi C)^{-1} S_x \mid
-$$
+$$\log \left|\left(\mathbb{L} \mathbb{L}^{-1}+\Psi\right)^{-1} C^{-1} S_x C^{-1}\right|=\log |( (C L)(C L)^\prime+C \Psi C)^{-1} S_x | $$
 
 So we can now say
 
@@ -342,22 +341,338 @@ $$
 \end{aligned}
 $$
 
-this shows that $C \hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0$ \& $C \hat{\Psi_1} C=\widehat{\Psi}_0$\\
-But what about the uniqueness requirement that $\hat{\mathbb{L}}^{\prime} \hat{\Psi}^{-1} \mathbb{L}$ is a diagnol matrix.
-Suppose $\hat{\mathbb{L}}_0^{\prime} \hat{\Psi}_0^{-1} \hat{\mathbb{L}}_0$ is diagnol \& define $\left.\hat{4}\right\} \hat{\Psi}_1$ as\\
+this shows that $C \hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0$ and $C \hat{\Psi_1} C=\widehat{\Psi}_0$.
+
+
+But what about the uniqueness requirement that $\hat{\mathbb{L}}^{\prime} \hat{\Psi}^{-1} \mathbb{L}$ is a diag. matrix.
+
+
+Suppose $\hat{\mathbb{L}}_0^{\prime} \hat{\Psi}_0^{-1} \hat{\mathbb{L}}_0$ is diag. and define as before ($C \hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0$ and $C \hat{\Psi_1} C=\widehat{\Psi}_0$)
 then
 
 $$
-\hat{\mathbb{L}}_1^{\prime} \hat{\Psi}_1^{-1} \hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0^{\prime} C^{-1} C \hat{\Psi}_0^{-1} C C^{-1} \hat{\mathbb{L}}_0=\hat{\mathbb{U}}_0^{\prime} \hat{\underline{I}}_0^{-1} \hat{\mathbb{L}}_0
+\hat{\mathbb{L}}_1^{\prime} \hat{\Psi}_1^{-1} \hat{\mathbb{L}}_1=\hat{\mathbb{L}}_0^{\prime} C^{-1} C \hat{\Psi}_0^{-1} C C^{-1} \hat{\mathbb{L}}_0=\hat{\mathbb{L}}_0^{\prime} \hat{\Psi}_0^{-1} \hat{\mathbb{L}}_0
 $$
 
-thees it diagnol. It follows the
+thus it diag. It follows that
 
 $$
-\hat{\mathbb{L}}_1=C^{-1} \hat{L}_0 \quad \text { \& } \hat{\Psi}_1=C^{-1} \hat{\Psi}_0 C^{-1}
+\hat{\mathbb{L}}_1=C^{-1} \hat{L}_0 \quad \text { and } \quad \hat{\Psi}_1=C^{-1} \hat{\Psi}_0 C^{-1}
 $$
 
-hence the maximum likelihood estimates of $L \frac{1}{2}$ are equivarlant.
+hence the maximum likelihood estimates of $L$ and $\Psi$ are equivariant.
 
-important cause scaling doesn't matter. y it changes it'll change in the way you think.
-q generally performed on correlation matrix so analysis is bared on standardized obs.
+**This is important cause scaling doesn't matter.** If it changes it'll change in the way you think. Generally performed on correlation matrix so analysis is based on standardized obs.
+
+## Choosing Number of factors
+
+There are 2 types of methods to pick factor numb
+
+
+- measuring goodness of fit of the model
+- variance explained
+
+
+In factor analysis model there are $pm+p$ parameters but $\mathbb{L}$ is not unique so could be less. There are $pm +p  - m(m-1) / 2$ free parameters.
+
+This comes from constraints use from MLE $\mathbb{L}^\prime \Psi \mathbb{L}$ is diagonal matrix so off diag have to be zero, this is where the $\frac{m(m-1)}{2}$ restriction comes from and with covariance matrix there are $p(p+1) / 2$ parameters.
+
+Thus we should consider $m$ for which
+
+$$
+p m+p-\frac{m(m-1)}{2} \leq \frac{p(p+1)}{2}
+$$
+
+so
+
+$$
+\begin{aligned}
+& \frac{p(p+1)}{2}-\left(p m+p-\frac{m(m-1)}{2}\right) \\
+& \frac{p(p+1)}{2}-\left(\frac{2 p m+2 p}{2}-\frac{m(m-1)}{2}\right) \\
+& \frac{1}{2}\left(p^2+p-2 p m-2 p - m^2 -m \right) \\
+& 0 \leq \frac{1}{2}\left((p-m)^2-p-m\right)
+\end{aligned}
+$$
+
+this is difference between number of unique parameters in an unrestricted $p \times p$  covariance matrix and the the  number of unique parameters in a factor model with $m$ factors.
+
+So using $\frac{1}{2} \left((p-m)^2 - p -m\right) \geq 0$ we can find $m^*$ as the max value of $m$ to satisfy the inequality. If $p=5$ then $m^* = 2$ or $p=10$ then $m^* = 6$.
+
+For variance explained we talk about total variance related to $\Sigma$ or $\operatorname{tr}(\Sigma)$, where $\operatorname{tr}(\Sigma) = \operatorname{tr}(\mathbb{L}\mathbb{L}^\prime + \Psi) = \operatorname{tr}(\mathbb{L}\mathbb{L}^\prime) + \operatorname{tr}(\Psi)$. 
+The loadings term $\operatorname{tr}(\mathbb{L}\mathbb{L}^\prime) = \sum^p l_{i1}^2 + \sum^p l_{i2}^2 + \dots + \sum^p l_{im}^2$. 
+
+We want to compare over total variance so the proportion of variance from the common factors is $\sum^m_{j=1}\sum^p_{i=1} l_{ij}^2/\operatorname{tr}(\Sigma)$.
+
+This depend on $\Sigma$ and $\mathbb{L}$: denote $\hat{\mathbb{L}}$ as the MLE of $\mathbb{L}$. and $S$ as the covariance matrix for a model with $m$ factors. 
+
+$$\Phi_m = \sum^m_{j=1}\sum^p_{i=1} \hat{l}_{ij}^2/\operatorname{tr}(S)$$
+
+So the sequence $\Phi_1, \Phi_2, \dots, \Phi_m$ gives the useful info about explained total variance for different $m$'s. 
+
+*When using the scaled observations then $S$ is correlation matrix and $\operatorname{tr}(S) = p$.*
+
+So we can find the $m$ which $\Phi_m$ meets at some threshold roughly around 0.7-0.9. Or you can look at the differences of $\Phi_m - \Phi_{m-1}$ for $m = 2,3,\dots, m^*$. If the increase in the proportion of explained variance is greater than some threshold, say $1/p$, the select m. With $1/p$  the increase in explained variance is at least as large as the average total variance per variable. But you could pick smaller threshold or when difference remains small but constant. 
+
+Sometimes we  want to look at variance explained by individual component of $X$. Consider $x_i$ with $\hat{h}_i^2$ as communality of variable $i$, $h_i^2 = \sum_{j=1}^m l_{ij}^2$. So proportion is $h_i^2/\operatorname{var}(x_i)$ and when standardized $\hat{h}_i^2 = \sum_{j=1}^m \hat{l}_{ij}^2$. So we want to include enough factors so $\hat{h}_i^2$ is large, at least 0.5 or 0.7-0.9 range.
+
+## For the foodness of fit approach
+
+*Finding smallest $m$ where model fits*
+
+For a given $m$ consider null hypothesis $H_0: \Sigma = \mathbb{L}\mathbb{L}^\prime + \Psi$ with the alternative as $\Sigma$ is unspecified.
+
+The LRT statistics is given by $n\log \frac{|\hat{\mathbb{L}}\hat{\mathbb{L}}^\prime + \hat{\Psi}|}{|S|}$. In practice a modified version where $n$ is replaced by $n-1 - \frac{2p+5}{6} - 2/3m$ is often used. This compares estimated covariance matrix under the model $\hat{\mathbb{L}}\hat{\mathbb{L}}^\prime + \hat{\Psi}$ to generalized variance from $S$.
+
+Under the null this follows a $\chi^2$ distribution with df fromt he difference between the number of parameters in the model when $\Sigma$ is unrestricted ($p+p(p-1)/2$) and unique parameters in factor analysis model $pm+p-m(m-1)/2$. So the df is $1/2((p-m)^2-p-m)$.
+
+To find $m$ start at $m=1$ calculate the LRT stat and if it doesnt fit increase to $m=2$ and so on.. Find the smallest $m$ that has a good fit suggest $m$ to pick.
+
+**This is a guideline** not a hard and fast test. Waiting for $m$ that p-value is less than 0.05.. not recommended.
+
+The test statistic is based on assumption of MVN, may not be true in practice. Since running one at a time not known for each test. This is geneally used along with other methods as part of a process.
+
+Other 'goodness of fit' methods calculate $\hat{\mathbb{L}}\hat{\mathbb{L}}^\prime + \hat{\Psi} - S$ if it fits well then generally small value.
+
+## Rotations of a loading matrix
+
+We know that loading $\mathbb{L}$ are not unique. If the model holds with a $p\times m$ loading matrix $\mathbb{L}_0$ then it also holds for $\mathbb{L}Q$ where $Q$ is $m \times m$ orthogonal matrix. So $\mathbb{L}_0 \sim \mathbb{L}_1$ they are equivarient.
+
+An analyst has the option of using a loading estimate that is equivarient to the maximum likelihood estimate rather than the MLE itself.
+
+Choosing and 'easier' interpreted loading matrix is **factor rotation**. We want to find an $m \times m$ orthogonal matrix $\mathbb{T}$ such that $\hat{\mathbb{L}}\mathbb{T}$ is interpreable.
+
+What is easily interpretable?
+
+### Loadings with simple structure
+
+- each column contains at least $m$ zeros
+- each row contains at least 1 zero
+- every pair of columns has several rows with a zero in one column but not in the other and several rows with zeros in both columns. Additionally every pair of columns should have nonzero loadings in both columns in only a few rows
+  - depends on p and m
+  
+The rows of loadings matrix give info about relationships between the components of $X$ and the factors. $\operatorname{cov}(x_i, F_j) = l_{ij}$, so a zero in the row means that part of $X$ and a factor are uncorrelated.
+ - doesn't have to be zero just insignificant. Generally a threshold of 0.3 or 0.4 or less is used.
+ 
+Best to think of zeros and nonzeros.
+
+### Rotation Example
+Consider the following artificial example. Let's define the loading matrix $\mathbf{L}_0$.
+
+```{r mat_setup}
+l_0 <- matrix(c(1,-1,1,0,0,0,0,1,0,1,1,0,0,0,-1,0,1,1), ncol = 3)
+l_0
+```
+
+This matrix has a "simple structure". Consider the orthogonal matrix $\mathbf{T}$
+```{r t}
+t <- matrix(c(0.61, -0.76, -0.23,0.63,0.64,-0.44,0.48,0.12,0.87), ncol = 3)
+t
+t%*%t(t) ## roughly looks to be orthogonal
+```
+
+Let $\mathbf{L} = \mathbf{L}_0 \mathbf{T}$ which is given by
+```{r multiply}
+l <- l_0 %*% t
+l
+```
+From our setup we know that $\mathbf{L}\mathbf{T}^{\prime} = \mathbf{L}_0$ has the simple structure that we saw given above. Thus, ideally, a rotation method applied to $\mathbf{L}$ will recover the loading matrix $\mathbf{L}_0$.
+
+From these methods (which we will explore later), infomax and standardized varimax give the roated loading matrix based on that 
+
+\begin{equation}
+\mathbf{L} = 
+\begin{bmatrix} 
+	0 & 1 & 0 \\
+	-1 & -1 & 0\\
+	0 & 1 & -1 \\
+	-1 & 0 & 0 \\
+	-1 & 0 & 1 \\
+	0 & 0 & 1 \\
+	\end{bmatrix}
+\end{equation}
+
+and the others returning the rotated factor matrix
+\begin{equation}
+\frac{1}{3}
+\begin{bmatrix} 
+	2 & 2 & 1 \\
+	-4 & -1 & 1\\
+	1 & 4 & -1 \\
+	-2 & 1 & 2 \\
+	-1 & -1 & 4\\
+	1 & -2 & 2 \\
+	\end{bmatrix}
+
+\end{equation}
+
+Note that none of the methods produced the matrix $\mathbf{L}_0$ exactly. But the rotated loading matrix using the std varimax and infomax would be $\mathbf{L}_0$  if columns 1 and 2 are switched. Such a change amounts to simply renaming factor 1 and factor 2 and renaming factor 2 and factor 1. So they are practically the same after some renaming. This is true in general, there is no practical difference between two loading matrices which have the same columns (but possibly in different orders).
+
+The other methods failed to identify the simple loading matrix $\mathbf{L}_0$; this a because of the fact that the criterion functions used in all the rotations methods are only indirectly related to the requirements of simple structure. However, there is a sense in which the loading matrix has a simple structure. Specifically, if the entries of this matrix with $\pm 1/3$ are written as $O$ and the other entries are written and $X$ the matrix is based on the pattern.
+
+\begin{equation}
+\begin{bmatrix} 
+	X & X & O \\
+	X & O & O \\
+	O & X & O \\
+	X & O & X \\
+	O & O & X \\
+	O & X & X \\
+	\end{bmatrix}
+\end{equation}
+
+Which does satisfy the requirements of a simple structure, thus using a cut-off point of $1/3$ (or larger), the rotated loading matrix based on the varimax, quartimax, and equamax, methods does have a simple structure but a different simple structure than that of the $\mathbf{L}_0$ we defined. Furthermore, because the different variables will generally be measuring different features of the subjects, the interpretations of the factors based on the two loading matrices will be different, in general. This is also a general property of different rotation methods - the different rotated loading matrices will generally lead to different interpretations fo the factors and the interpretations that is most useful scientifically will depend on the specifics of the data being analyzed. 
+Because of this, it is generally a good idea to consider the results from several methods of rotation. Note that choosing a rotation method is different than choosing an estimation method. For estimation, some methods are provably better than others and it is inappropriate to try several methods an choose the estimate that the analyst prefers. However, when considering factor rotations, any method is acceptable and the analyst is free to try several methods and choose the rotated loadings that are easiest to interpret. Recall that any two factor loading matrices related to an orthogonal transformation describe the same model for the data.
+
+### Computation of Factor Rotations
+
+Rotation criteria: difficult directly choose othogonal transformation of the loadings..
+
+
+The basic approach is to choose a criterion function $\kappa(\cdot)$ and then find the orthogonal matrix $\mathbf{T}$ that maximizes $\kappa(\hat{\mathbf{L}}\mathbf{T})$. Thus this is a constrained optimization problem, with the constraints arising from the fact that $\mathbf{T}$ is orthogonal. So this is found by maximizing $\kappa(\hat{\mathbf{L}}\mathbf{T})$ over the $m^2$ elements of $\mathbf{T}$ subject to the restriction that $\mathbf{T}^{\prime} \mathbf{T} = \mathbf{I}$. (Crawford - Ferguson)
+
+Commonly used criterion functions 
+- varimax: sum of sample variances of columns of the squared loading matrix. So if a small value then high variation in magnitudes of loadings in each column. (somtimes standardized varimax $l_{ij}^2/(1-\Psi)$)
+- quartimax: same as varimax but on the rows
+- equamax: uses both rows and columns
+- infomax: different than rest. Views loading matrix as $p\times m$ contingency table. If tested and 'not independent' (associated) then those are kept.
+
+Lets look at the GPArotation package in R. https://cran.r-project.org/web/packages/GPArotation/GPArotation.pdf
+```{r gparotation}
+library(GPArotation)
+Varimax(l)
+## different than stats varimax which normalizes be default gpa does not
+## like standardized
+stats::varimax(l) 
+
+## other functions in the package
+infomaxT(l) ## T is for othogonal 
+quartimax(l)
+## equamax not names but still possible
+cfT(l, kappa = 1/4) ## see notes in package detail about equamax = m/(2*p)
+```
+
+
+## Factor Oblique Rotations
+
+Relaxing the restrictions for a transformation that is not orthogonal to a transformation $\mathbf{M}$ that is an invertible matrix satisfying the requirement that the diagonal elements of $\mathbf{M}\mathbf{M}^{\prime}$ are 1. What this criterion looks like for a function $\kappa(\cdot)$ is finding an $m \times m$ nonsigular matrix $\mathbf{T}$ that maximizes $\kappa(\hat{\mathbf{L}}\mathbf{T})$ subject to the restriction that the diagonal elements of $\mathbf{T}^{-1}(\mathbf{T}^{-1})^{\prime}$.
+
+```{r oblique}
+## still from GPArotation package
+oblimin(l)
+infomaxQ(l)
+cfQ(l, kappa = 1/4)
+```
+
+## Factor Scores
+
+Sometimes we might want to determine the values of $F$ for each subject because we want to know the influence they have on $X$. But $F$ for a given subject is not an knowns parameter, its an unobservable random vector hence it can't be estimated in the usual sense.
+
+We can determine the 'observed values' of $F$ that correstpond to the observed data. These are called factor scores.
+
+Given the model $X = \mu +\mathbb{L}F + \varepsilon$.
+
+$X$ is obserbedd, $F$ is not so 'best predictor' would be conditional on expectation $E(F|X)$. Need joint distribution to do that.
+
+Assume the random vector of $X$ and $F$ are MVN distribution with mean vector $\mu$ and 0 respectively. To get covariance matrix:
+
+We know $\operatorname{cov}(x) = \mathbb{L}\mathbb{L}^\prime + \Psi$ and
+
+## Data
+Let's look at the sesame street dataset again but with factor analysis in mind. We will analyze all the test scores, those from the pretests along with those from the postests.
+
+```{r data, warning=FALSE, message=FALSE}
+library(tidyverse)
+sesame <- read_csv("data/sesame.csv")
+test_sesame <- sesame %>% 
+  select(starts_with("pre"), starts_with("post")) %>% 
+  select(-pretest) # don't want pretest
+
+head(test_sesame)
+
+```
+
+### Choosing the number of factors
+We have 12 variables so remembering equation $\frac{1}{2}((p-m)^2 -p-m) \geq 0$ the max number of factors we could have is 7, so lets test out models with 1-7 factors and look at the relevent statistics.
+
+```{r sizeF}
+fa_size <- lapply(1:7, function(i) factanal(test_sesame, i))
+
+fa_size[[1]]$uniquenesses
+## take 1 - sum of loadings / tr
+phi <- simplify(lapply(1:7, function(x) 1-sum(fa_size[[x]]$uniquenesses)/12))
+phi
+
+phi[-1] - phi[-7] ## phi_m - phi_m-1
+ ## want something around 0.7 or small difference
+### so 4,5,6 factors seem reasonable
+
+## look at communality 1- uniq
+1-fa_size[[4]]$uniquenesses
+1-fa_size[[5]]$uniquenesses
+1-fa_size[[6]]$uniquenesses
+
+## really changing variable to variable but kind of a jump between 5 and 6
+
+## can also look at pval from LRT
+fa_size[[4]]$PVAL
+fa_size[[5]]$PVAL
+fa_size[[6]]$PVAL
+
+## 5 seems like a decent choice in the middle
+## lets look at the estimated correlation matrix from loading
+## L * L^prime + diag(loadings)
+est_corr5 <- fa_size[[5]]$loadings %*% t(fa_size[[5]]$loadings) + diag(fa_size[[5]]$uniquenesses)
+est_corr5
+
+## compare with sample correlation matrix
+round(est_corr5 - cor(test_sesame), 2)
+## pretty close
+```
+
+### Estimation and Rotation
+In the `factanal` function the default rotation method is varimax so that has already been performed on the loading matrix. 
+```{r loading}
+
+fa_size[[5]]$loadings
+## cut off here for printing is .10
+
+## if we want to view only those over 0.4
+print(fa_size[[5]]$loadings, cutoff = 0.4)
+```
+ What do you see? Remember that factors are supposed to be uncorrelated from each other which could make this interpretation difficult.
+ 
+ Try out more rotation methods using `factanal(test_sesame, rotation = "criterion here")` How does it compare with correlation matrix and LRT? What does the loading matrix look like? How would we interpret it?
+ 
+```{r diff-rotations}
+
+
+
+
+```
+ 
+### Estimation of factor scores
+Inside the  `factanal` function the scores are given within the function as part of the output if told to do so with `scores = "regression"`.
+```{r scores}
+factanal(test_sesame, 5, scores = "regression")$scores %>% 
+  bind_cols(test_sesame) %>% 
+  head()
+
+factanal(test_sesame, 5, scores = "regression")$scores %>% 
+  bind_cols(child = sesame$id) %>% 
+  ggplot(aes(Factor1, Factor2)) +
+  geom_point()
+
+```
+
+
+## Try on your own
+Perform factor analysis with different rotations (oblique included) and look at their factor scores on the dataset `penguins`. You could also
+
+```{r}
+library(palmerpenguins)
+penguins %>% 
+  select(bill_length_mm:body_mass_g) %>% 
+  drop_na()
+
+data("USArrests")
+```
