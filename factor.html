@@ -1190,21 +1190,42 @@ oblimin(l)</code></pre>
 <p>Sometimes we might want to determine the values of <span class="math inline">\(F\)</span> for each subject because we want to
 know the influence they have on <span class="math inline">\(X\)</span>.
 But <span class="math inline">\(F\)</span> for a given subject is not an
-knowns parameter, its an unobservable random vector hence it can’t be
+known parameter, its an unobservable random vector hence it can’t be
 estimated in the usual sense.</p>
 <p>We can determine the ‘observed values’ of <span class="math inline">\(F\)</span> that correstpond to the observed data.
 These are called factor scores.</p>
 <p>Given the model <span class="math inline">\(X = \mu +\mathbb{L}F +
 \varepsilon\)</span>.</p>
-<p><span class="math inline">\(X\)</span> is obserbedd, <span class="math inline">\(F\)</span> is not so ‘best predictor’ would be
+<p><span class="math inline">\(X\)</span> is observed, <span class="math inline">\(F\)</span> is not so ‘best predictor’ would be
 conditional on expectation <span class="math inline">\(E(F|X)\)</span>.
 Need joint distribution to do that.</p>
 <p>Assume the random vector of <span class="math inline">\(X\)</span>
 and <span class="math inline">\(F\)</span> are MVN distribution with
 mean vector <span class="math inline">\(\mu\)</span> and 0 respectively.
 To get covariance matrix:</p>
-<p>We know <span class="math inline">\(\operatorname{cov}(x) =
-\mathbb{L}\mathbb{L}^\prime + \Psi\)</span> and</p>
+<p>We know <span class="math inline">\(\operatorname{cov}(X) =
+\mathbb{L}\mathbb{L}^\prime + \Psi\)</span> and <span class="math inline">\(\operatorname{cov}(F) = I\)</span> and since <span class="math inline">\(F\)</span> and <span class="math inline">\(X\)</span> are uncorrelated</p>
+<p><span class="math display">\[\operatorname{cov}(X, F) =
+\operatorname{cov}(\mathbb{L}F+\varepsilon, F) =
+\operatorname{cov}(\mathbb{L}F, F) = \mathbb{L}\]</span></p>
+<p>So</p>
+<p><span class="math display">\[\operatorname{cov}(\left[\begin{array}{c}
+X-\mu \\
+F \\
+\end{array}\right]) = \left[\begin{array}{cc}
+\mathbb{L}\mathbb{L}^\prime + \Psi &amp; \mathbb{L} \\
+\mathbb{L}^\prime &amp; I \\
+\end{array}\right]\]</span> Using MVN properties <span class="math inline">\(E(F|X) =
+\mathbb{L}^\prime(\mathbb{L}\mathbb{L}^\prime +
+\Psi)^{-1}(X-\mu)\)</span>.</p>
+<p>We need to estimate this though.. - <span class="math inline">\(\mathbb{L}\)</span> use <span class="math inline">\(\hat{\mathbb{L}}\)</span> - <span class="math inline">\((\mathbb{L}\mathbb{L}^\prime + \Psi)^{-1}\)</span>
+use <span class="math inline">\(S\)</span> - <span class="math inline">\(\mu\)</span> use <span class="math inline">\(\bar{X}\)</span></p>
+<p>We get <span class="math inline">\(\hat{F} = \hat{\mathbb{L}}^\prime
+S^{-1}(X - \bar{X})\)</span></p>
+<p>This is known as the regression method estimator of the factor
+scores. This gives <span class="math inline">\(F\)</span> values
+corresponding to teh response vector <span class="math inline">\(X\)</span> and applying it to observed variables.
+This yields factor scores for all subjects.</p>
 </div>
 <div id="data" class="section level2">
 <h2>Data</h2>
@@ -1212,10 +1233,14 @@ To get covariance matrix:</p>
 analysis in mind. We will analyze all the test scores, those from the
 pretests along with those from the postests.</p>
 <pre class="r"><code>library(tidyverse)
+
+# Load Sesame Street dataset
 sesame &lt;- read_csv(&quot;data/sesame.csv&quot;)
+
+# Select pretest and posttest variables
 test_sesame &lt;- sesame %&gt;% 
   select(starts_with(&quot;pre&quot;), starts_with(&quot;post&quot;)) %&gt;% 
-  select(-pretest) # don&#39;t want pretest
+  select(-pretest)  # Remove pretest variable
 
 head(test_sesame)</code></pre>
 <pre><code>## # A tibble: 6 × 12

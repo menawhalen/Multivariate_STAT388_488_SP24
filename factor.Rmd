@@ -565,27 +565,53 @@ cfQ(l, kappa = 1/4)
 
 ## Factor Scores
 
-Sometimes we might want to determine the values of $F$ for each subject because we want to know the influence they have on $X$. But $F$ for a given subject is not an knowns parameter, its an unobservable random vector hence it can't be estimated in the usual sense.
+Sometimes we might want to determine the values of $F$ for each subject because we want to know the influence they have on $X$. But $F$ for a given subject is not an known parameter, its an unobservable random vector hence it can't be estimated in the usual sense.
 
 We can determine the 'observed values' of $F$ that correstpond to the observed data. These are called factor scores.
 
 Given the model $X = \mu +\mathbb{L}F + \varepsilon$.
 
-$X$ is obserbedd, $F$ is not so 'best predictor' would be conditional on expectation $E(F|X)$. Need joint distribution to do that.
+$X$ is observed, $F$ is not so 'best predictor' would be conditional on expectation $E(F|X)$. Need joint distribution to do that.
 
 Assume the random vector of $X$ and $F$ are MVN distribution with mean vector $\mu$ and 0 respectively. To get covariance matrix:
 
-We know $\operatorname{cov}(x) = \mathbb{L}\mathbb{L}^\prime + \Psi$ and
+We know $\operatorname{cov}(X) = \mathbb{L}\mathbb{L}^\prime + \Psi$ and $\operatorname{cov}(F) = I$ and since $F$ and $X$ are uncorrelated
+
+$$\operatorname{cov}(X, F) = \operatorname{cov}(\mathbb{L}F+\varepsilon, F) = \operatorname{cov}(\mathbb{L}F, F) = \mathbb{L}$$
+
+So 
+
+$$\operatorname{cov}(\left[\begin{array}{c}
+X-\mu \\
+F \\
+\end{array}\right]) = \left[\begin{array}{cc}
+\mathbb{L}\mathbb{L}^\prime + \Psi & \mathbb{L} \\
+\mathbb{L}^\prime & I \\
+\end{array}\right]$$
+Using MVN properties $E(F|X) = \mathbb{L}^\prime(\mathbb{L}\mathbb{L}^\prime + \Psi)^{-1}(X-\mu)$.
+
+We need to estimate this though..
+- $\mathbb{L}$ use $\hat{\mathbb{L}}$
+- $(\mathbb{L}\mathbb{L}^\prime + \Psi)^{-1}$ use $S$
+- $\mu$ use $\bar{X}$
+
+We get $\hat{F} = \hat{\mathbb{L}}^\prime S^{-1}(X - \bar{X})$
+
+This is known as the regression method estimator of the factor scores. This gives $F$ values corresponding to teh response vector $X$ and applying it to observed variables. This yields factor scores for all subjects.
 
 ## Data
 Let's look at the sesame street dataset again but with factor analysis in mind. We will analyze all the test scores, those from the pretests along with those from the postests.
 
 ```{r data, warning=FALSE, message=FALSE}
 library(tidyverse)
+
+# Load Sesame Street dataset
 sesame <- read_csv("data/sesame.csv")
+
+# Select pretest and posttest variables
 test_sesame <- sesame %>% 
   select(starts_with("pre"), starts_with("post")) %>% 
-  select(-pretest) # don't want pretest
+  select(-pretest)  # Remove pretest variable
 
 head(test_sesame)
 
