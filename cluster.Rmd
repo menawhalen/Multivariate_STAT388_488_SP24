@@ -1,0 +1,304 @@
+---
+title: "Clustering"
+author: "M Whalen"
+date: "2024-03-26"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Clustering:
+Clustering is a fundamental unsupervised learning technique used to group similar objects together based on certain characteristics or features. The goal of clustering is to identify natural groupings or clusters within a dataset without any prior knowledge of group memberships.
+
+## Idea of Clustering:
+
+- Similarity: Clustering is based on the idea that objects that are similar to each other in terms of certain attributes should belong to the same cluster.
+- Homogeneity within Cluster: Objects within the same cluster are more similar to each other than to objects in other clusters.
+- Heterogeneity between Clusters: Clusters should be distinct from each other, meaning objects from different clusters should be dissimilar.
+
+# K-Means
+
+## Motivating Example
+
+When using clustering and classification techniques we wish to group together a dataset into $k$ clusters. We are trying to find a latent structure in the data, we are still performing dimensionality reduction to uncover groupings that help us understand the dataset better.
+
+Using the features of the data we want to assign a cluster to each data point based on minimizing some numerical criteria of the data. This is normally done by minimizing the within cluster sum of squares and thus maximizing the between cluster sum of squares. Each cluster should be homogeneous so that the within sum of squares is small and each cluster is distinct from one another.
+
+What are examples where researchers try to understand subgroups? In medicine? Sports? Climate?
+
+Example: Does the faithful dataset (eruption: duration of eruption, waiting: time between eruptions) have a latent variable that could help us better understand the data?
+
+```{r}
+library(tidyverse)
+# Explore data
+head(faithful)
+
+ggplot(faithful, aes(x = eruptions, y = waiting)) +
+  geom_point()
+```
+
+## Partitions
+If $k$ is known this seems like a very straightforward problem. Take the $n$ elements into every possible partition of $k$ groups, then the partition that minimizes the within-group sum of squares over all the variables.
+
+If in my dataset there are 20 observations and I want $k=3$, how many possible partitions could there be?
+
+```{r}
+## hint: S(n,k) Stirling 2 
+library(gmp)
+Stirling2(n = 20, k = 3)
+```
+
+
+## K-Means Algorithm
+The K-Means algorithm works based on the simple idea of starting with an initial setup of clusters and rearrange the clusters until a grouping is found that minimizes the clustering criteria, generally within cluster sum of squares error.
+
+1. Find $k$
+  i. Elbow Method: Calculate within cluster sum of square for different values of $k$ and see where they start to diminish.
+  ii. Best Practice: Scale the data before clustering so that one variable isn't influencing the analysis because it is larger or a different scale (Thousands of Dollar and Age).
+
+2. Shuffle the data to then randomly assign $k$ points to be the centriod of the $k$ clusters. The centriods are thought of as the center of the cluster, the arithmetic mean of the cluster.
+
+3. Iterate this process until the criterion is met, until the centriods are not changing.
+  i. Calculate the sum of squares for the current centriods.
+  ii. Assign each data point to the closest cluster, which centriod is it closest to.
+  iii. Recalculate the centriods by the new data points in the clusters.
+
+## Mathematics of K-Means
+
+The K-Means algorithm is an iterative clustering algorithm that aims to partition a given dataset into $K$ clusters. The algorithm minimizes the within-cluster sum of squares (WCSS), also known as inertia or distortion. Here's a brief overview of the mathematics behind the K-Means algorithm:
+
+Given a dataset $X = \{x_1, x_2, ..., x_n\}$ where each $x_i$ is a $p$-dimensional vector representing a data point:
+
+1. \textbf{Initialization}: Randomly select $K$ data points from the dataset as initial cluster centroids $\mu_1, \mu_2, ..., \mu_K$.
+
+2. \textbf{Assignment Step}: For each data point $x_i$, calculate its distance to each cluster centroid $\mu_j$ using a distance metric such as Euclidean distance. Assign $x_i$ to the cluster with the nearest centroid:
+
+   $\text{argmin}_j ||x_i - \mu_j||^2$
+
+3. \textbf{Update Step}: After assigning all data points to clusters, update the cluster centroids by computing the mean of all data points assigned to each cluster:
+
+   $\mu_j = \frac{1}{|C_j|} \sum_{x_i \in C_j} x_i$
+
+   where $|C_j|$ is the number of data points assigned to cluster $C_j$.
+
+4. \textbf{Repeat}: Iteratively repeat steps 2 and 3 until convergence. Convergence occurs when the cluster assignments no longer change or when the centroids stabilize.
+
+5. \textbf{Termination}: The algorithm terminates when convergence is achieved or after a specified number of iterations.
+
+The objective of the K-Means algorithm is to minimize the following objective function:
+
+\[ J = \sum_{i=1}^{n} \sum_{j=1}^{K} w_{ij} ||x_i - \mu_j||^2 \]
+
+where $w_{ij} = 1$ if data point $x_i$ belongs to cluster $j$ and 0 otherwise.
+
+In summary, the K-Means algorithm iteratively updates the cluster centroids to minimize the total within-cluster sum of squares, leading to a partitioning of the dataset into $K$ clusters. It's important to note that K-Means may converge to a local minimum, and the quality of the clustering result can depend on the initial centroid selection and the choice of $K$.
+
+
+Example of K-Means with reduction of sum of squares:
+![Alt
+Text](https://media.giphy.com/media/12vVAGkaqHUqCQ/source.gif)
+
+### Questions
+- Will this guarantee finding the global minimum SSE? (T/F)
+
+- If we start with different initial groupings will they always result in the same final clustering results? (T/F)
+
+## Number of Clusters: Elbow Method
+
+The Elbow Method is a heuristic used to determine the optimal number of clusters ($k$) in a dataset for K-Means clustering. It involves plotting the within-cluster sum of squares (WCSS) against the number of clusters and identifying the "elbow" point, where the rate of decrease in WCSS slows down significantly. This point indicates the optimal number of clusters where adding more clusters doesn't significantly reduce the WCSS.
+
+## ## Importance of Scaling
+
+Scaling the features before performing K-Means clustering is crucial for several reasons:
+
+1. **Equal Weightage**: K-Means clustering algorithm is sensitive to the scale of the features. Features with larger scales tend to dominate the distance calculations, leading to biased cluster assignments. Scaling ensures that all features contribute equally to the clustering process.
+
+2. **Distance Metrics**: K-Means uses distance-based metrics (such as Euclidean distance) to calculate the similarity between data points. When features are not scaled, those with larger scales will have a larger impact on the distance calculations, potentially leading to inaccurate clustering results.
+
+3. **Convergence Speed**: Scaling can improve the convergence speed of the algorithm. Features with larger scales may cause the cluster centroids to move significantly in each iteration, slowing down the convergence process. Scaling mitigates this issue by bringing all features to a similar scale, allowing the algorithm to converge faster.
+
+4. **Interpretability**: Scaling makes the results of clustering more interpretable. Without scaling, it becomes challenging to interpret the importance of each feature in defining the clusters, as their scales may vary widely.
+
+Therefore, it is recommended to scale the features before applying K-Means clustering to ensure robust and reliable results.
+
+
+
+## Faithful Example
+Using the faithful dataset plot the data with their cluster assignment. Find the sum of squares error for $k=2$.
+
+Let's first explore the data and kmeans function.
+```{r}
+library(tidyverse)
+
+## don't forget to scale first!
+faithful_scale <- faithful %>% 
+  mutate_all(scale)
+
+## remember plot where k=2
+ggplot(faithful_scale, aes(x = eruptions, y = waiting)) +
+  geom_point()
+
+## kmeans function, what does it do
+?kmeans
+
+```
+
+Now lets find the cluster assignments for $k=2$.
+
+```{r}
+# K-means 
+faithful_clusters <- kmeans(faithful_scale, centers = 2)
+
+# Plot the cluster assignment
+faithful_scale %>% 
+  mutate(cluster = faithful_clusters$cluster) %>% 
+  ggplot(aes(x = eruptions, y = waiting, color = factor(cluster))) +
+    geom_point()
+
+# Total within sum of squares and between
+faithful_clusters$tot.withinss + faithful_clusters$betweenss
+  
+# Total sum of square error
+faithful_clusters$totss
+
+```
+
+Check if $k=2$ is the correct $k$ to use.
+
+```{r}
+# Elbow plot
+wss <- sapply(1:10, function(k){kmeans(faithful_scale, k)$tot.withinss})
+
+tibble(x = 1:length(wss), y = wss) %>% 
+  ggplot(aes(x, y)) +
+  geom_point() +
+  geom_line()
+```
+
+## Expore on your own..
+
+https://data.cityofchicago.org/
+
+```{r}
+data("USArrests")
+data("airquality")
+```
+
+# Hierarchical Clustering
+Hierarchical clustering is another widely used technique in clustering analysis. Unlike partitioning methods like K-Means, hierarchical clustering does not require the pre-specification of the number of clusters. Instead, it creates a hierarchy of clusters, also known as a dendrogram, which illustrates the relationships between data points at different levels of granularity.
+
+## Types of Hierarchical 
+
+1. Agglomerative Hierarchical Clustering:
+ - Bottom-Up Approach: Agglomerative hierarchical clustering starts with each data point as its own cluster and then iteratively merges the closest pairs of clusters until only one cluster remains.
+
+2. Divisive Hierarchical Clustering:
+ - Top-Down Approach: Divisive hierarchical clustering starts with all data points in a single cluster and then recursively divides the clusters into smaller clusters until each data point is in its own cluster.
+
+Dendrogram: The process of merging clusters is visualized as a dendrogram, a tree-like structure where the leaves represent individual data points, and the branches represent the merging of clusters at different levels.
+
+## Distance Measures
+
+In clustering analysis, distance measures quantify the dissimilarity or similarity between data points. Here are some commonly used distance measures:
+
+1. *Euclidean Distance*
+- Definition: Euclidean distance is the straight-line distance between two points in Euclidean space.
+- Formula: For two points $p = (p_1, p_2, ..., p_n)$ and $q = (q_1, q_2, ..., q_n)$ in an $n$-dimensional space, the Euclidean distance $d(p, q)$ is given by:
+    \[ d(p, q) = \sqrt{\sum_{i=1}^{n} (p_i - q_i)^2} \]
+
+
+2. *Manhattan Distance*
+- Definition : Manhattan distance, also known as city block distance or taxicab distance, measures the distance between two points as the sum of the absolute differences of their coordinates.
+- Formula: For two points $p = (p_1, p_2, ..., p_n)$ and $q = (q_1, q_2, ..., q_n)$ in an $n$-dimensional space, the Manhattan distance $d(p, q)$ is given by:
+    \[ d(p, q) = \sum_{i=1}^{n} |p_i - q_i| \]
+
+
+3. *Minkowski Distance*
+- Definition: Minkowski distance is a generalization of both Euclidean and Manhattan distances.
+- Formula: For two points $p = (p_1, p_2, ..., p_n)$ and $q = (q_1, q_2, ..., q_n)$ in an $n$-dimensional space, the Minkowski distance $d(p, q)$ with parameter $p$ is given by:
+    \[ d(p, q) = \left(\sum_{i=1}^{n} |p_i - q_i|^p \right)^{\frac{1}{p}} \]
+
+4. *Wald's Distance*
+- Definiation: The Wald's distance, also known as the Mahalanobis distance, is a measure of the distance between two points in a multidimensional space, relative to the scatter of the data. It is particularly useful when the dimensions of the data are correlated or when the data is not isotropic.
+ - Forumula: Given a dataset with $n$ observations and $p$ features, represented as an $n \times p$ matrix $X$, the Mahalanobis distance between two data points $x_i$ and $x_j$ is defined as follows:
+ 
+  \[ D_{ij} = \sqrt{(x_i - x_j)^T \Sigma^{-1} (x_i - x_j)} \]
+  
+Where $\Sigma^{-1}$ denotes the inverse of the covariance matrix $\Sigma$
+
+
+- Note: The Mahalanobis distance takes into account the correlations between different features in the dataset by using the covariance matrix. It scales each feature based on its variance and the covariance with other features, allowing it to account for differences in feature scales and orientations. When the covariance matrix is diagonal (i.e., features are uncorrelated), the Mahalanobis distance reduces to the Euclidean distance.
+
+
+5. *Cosine Similarity*: It measures the cosine of the angle between two vectors in an inner product space. It's often used for text mining and recommendation systems when dealing with high-dimensional sparse data.
+
+6. *Correlation-based Distance*: Measures the correlation between two data points. It's useful for clustering when the relative relationship between features is more important than their absolute values.
+
+## Number of Clusters
+Choosing the number of clusters in hierarchical clustering can be a crucial decision as it determines the granularity of the clustering solution. Here are some common methods for selecting the number of clusters in hierarchical clustering:
+
+1. Dendrogram Visualization:
+- Method: One of the most intuitive approaches is to visually inspect the dendrogram, which displays the hierarchical clustering process.
+- Procedure: Look for the level at which merging clusters start to form large, distinct branches. This can indicate a suitable number of clusters.
+- Selection: Decide on the number of clusters based on the height or dissimilarity threshold at which to cut the dendrogram.
+
+2. Distance Threshold:
+- Method: Set a threshold for the dissimilarity or distance between clusters below which clusters are merged.
+- Procedure: Choose a threshold based on domain knowledge or by observing the dendrogram. Clusters merged below this threshold will form the final clusters.
+- Selection: Adjust the threshold to achieve the desired number of clusters or to ensure that clusters are cohesive.
+
+3. Gap Statistics:
+- Method: Compare the within-cluster dispersion to a reference distribution to identify the optimal number of clusters.
+- Procedure: Calculate the within-cluster dispersion for different numbers of clusters and compare it to the expected dispersion under a null reference distribution (e.g., randomly generated data).
+- Selection: Choose the number of clusters where the gap statistic (difference between observed and expected dispersion) is maximized.
+
+4. Silhouette Score:
+- Method: Measure the quality of clustering based on the average distance between data points in the same cluster and the average distance to the nearest neighboring cluster.
+- Procedure: Compute the silhouette score for different numbers of clusters and choose the number that maximizes the silhouette score.
+- Selection: Select the number of clusters with the highest silhouette score, indicating well-separated and compact clusters.
+
+5. Hierarchical Clustering with a Fixed Number of Clusters:
+- Method: Perform hierarchical clustering iteratively with different numbers of clusters and select the number that best fits the data.
+- Procedure: Fit hierarchical clustering models with varying numbers of clusters, such as agglomerative clustering with different linkage methods.
+- Selection: Use metrics such as within-cluster sum of squares or silhouette score to evaluate the clustering solutions and choose the optimal number of clusters.
+
+6. Domain Knowledge:
+- Method: Utilize domain-specific knowledge or expertise to determine the appropriate number of clusters.
+- Procedure: Consider the characteristics of the data and the intended application of the clustering results.
+- Selection: Choose a number of clusters that aligns with the underlying structure of the data or meets the requirements of the analysis.
+
+## Analysis
+
+```{r}
+# Load libraries
+library(dendextend)
+library(cluster)
+library(factoextra)
+
+# Load dataset
+data("USArrests")
+head(USArrests)
+
+# Perform hierarchical clustering with Ward's method
+hc <- hclust(dist(USArrests), method = "ward.D2")
+
+# Plot dendrogram
+dend <- as.dendrogram(hc)
+plot(dend, main = "Dendrogram of US Arrests")
+
+# Cut the dendrogram to obtain clusters
+cut_dend <- cutree(hc, k = 3)  # Choose an initial number of clusters
+table(cut_dend)
+
+# Visualize clusters using silhouette plot
+sil <- silhouette(cut_dend, dist(USArrests))
+sil_summary <- summary(sil)
+sil_summary
+
+# Plot silhouette plot
+fviz_silhouette(sil)
+
+```
+
