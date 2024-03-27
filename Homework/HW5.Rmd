@@ -1,0 +1,58 @@
+---
+title: "Homework 5"
+author: "Your Name Here"
+date: "2024-04-03"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+## Chapter 9: 1, 2
+
+9.1 
+
+9.2 a)
+
+
+9.2 b)
+
+
+## Coding Problems 
+
+Using data from https://higgi13425.github.io/medicaldata/ and the smartpill dataset. There are codebooks and descriptions of the study found at the website.
+
+
+```{r}
+#install.packages("medicaldata")
+library(medicaldata)
+library(tidyverse)
+
+smartpill <- medicaldata::smartpill
+
+smartpill_clean <- smartpill %>% 
+  select(-c(Group, Gender, Race)) %>% 
+  na.omit()
+
+```
+
+1. Explore the dataset and the summary statistics of the variables. Look at the correlation and covariance structure, report what you see from the data. Should you standardize the data and why is that important?
+
+
+2. Factor Analysis
+
+a) How many factors are possible given the data?
+
+b) What number of factors would you select? Explain your rationale for selecting a specific number of factors and consider the interpretability of the factors and the amount of variance explained.
+
+c) Perform factor analysis with that number of factors. What are the factor loadings here, and what do they mean for the factors?
+
+d) Perform two other factor rotations (one orthogonal and one oblique): Describe the purpose of factor rotation in factor analysis.
+- Perform an orthogonal rotation (e.g., Varimax) and an oblique rotation (e.g., Promax).
+- Compare the factor loadings before and after rotation.
+- Discuss how each rotation method affects the interpretability of the factors, especially in the case of an oblique rotation.
+
+3. Using the same dataset perform PCA. 
+
+a) Select the number of PC to use and interpret results.
+
+b) What is better for this dataset Exploratory Factor Analysis or PCA?
